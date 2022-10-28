@@ -17,10 +17,39 @@ const App = () => {
     time: "",
   });
 
+  const [check, setCheck] = useState({
+    breakfast: false,
+    dinner: false,
+    lunch: false,
+    snack: false,
+    teatime:false,
+    drinks: false,
+    "main course": false,
+    preps: false,
+    "side dish": false,
+    soup: false,
+    "alcohol-free": false,
+    vegan: false,
+    vegetarian: false,
+    "kidney-friendly": false,
+    "pork-free":false,
+    balanced: false,
+    "high-protein": false,
+    "low-carb": false,
+    "low-fat": false,
+    "low-sodium": false
+  })
+  const [value,setValue]=useState({
+    minCalories:"",
+    maxCalories:"",
+    minIngr:"",
+    maxIngr:"",
+    minTime:"",
+    maxTime:""
 
-  let a = "1";
+  })
   const get = async (data) => {
-    /*     const response = await axios(`https://api.edamam.com/search?q=chicken&app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&${a && `to=${a.toString()}`}`); */
+ 
 
     let url = "https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21"
     url = url + "&" + "q=" + (data.q ? data.q : " ");
@@ -39,6 +68,8 @@ const App = () => {
           }
           console.log(firstPart, "fir")
           console.log(secondPart, "seonc");
+        }else{
+          url = url + "&" + `${param}=` + `${data[param]}`;
         }
 
         console.log("if")
@@ -63,15 +94,16 @@ const App = () => {
   }
 
   useEffect(() => {
-   /*   get(input);  */
+    /*   get(input);  */
 
 
-/*     console.log(input.calories, "use effect")
-    console.log(input.time,"time effect") */
+    /*     console.log(input.calories, "use effect")
+        console.log(input.time,"time effect") */
     /*    console.log(input, "input") */
   }, [input])
 
   const handleCheck = (e) => {
+
     let array = input[e.target.name];
     console.log(array, "array")
     console.log(e.target.id, "target id")
@@ -92,7 +124,7 @@ const App = () => {
     if (e.target.className === "min") {
       console.log(input[e.target.name]);
       if (e.target.value === "") {
-        if(input[e.target.name].indexOf("%") !== -1){
+        if (input[e.target.name].indexOf("%") !== -1) {
           return setInput({ ...input, [e.target.name]: "" });
         }
         console.log("min target");
@@ -155,20 +187,51 @@ const App = () => {
     e.preventDefault();
     console.log(input)
     get(input);
-    setInput({
-      q: "",
-      ingr: "",
-      diet: "",
-      health: "",
-      cuisineType: [],
-      mealType: [],
-      dishType: [],
-      calories: "",
-      time: "",
-    })
-
+   
   }
-
+const handleReset=()=>{
+  setInput({
+    q: "",
+    ingr: "",
+    diet: "",
+    health: "",
+    cuisineType: [],
+    mealType: [],
+    dishType: [],
+    calories: "",
+    time: "",
+  })
+  setCheck({
+    breakfast: false,
+    dinner: false,
+    lunch: false,
+    snack: false,
+    teatime:false,
+    drinks: false,
+    "main course": false,
+    preps: false,
+    "side dish": false,
+    soup: false,
+    "alcohol-free": false,
+    vegan: false,
+    vegetarian: false,
+    "kidney-friendly": false,
+    "pork-free":false,
+    balanced: false,
+    "high-protein": false,
+    "low-carb": false,
+    "low-fat": false,
+    "low-sodium": false
+  })
+  setValue({
+    minCalories:"",
+    maxCalories:"",
+    minIngr:"",
+    maxIngr:"",
+    minTime:"",
+    maxTime:""
+  })
+}
   return (
     <form action="get" onSubmit={(e, input) => { handleSubmit(e, input) }}>
       <div>
@@ -180,23 +243,39 @@ const App = () => {
       <div>
         <div><label htmlFor="mealType">Meal Type:</label></div>
 
-        <input type="checkbox" name="mealType" id="breakfast" value="breakfast" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="mealType" id="breakfast" value="breakfast" checked={check["breakfast"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }}
+        />
 
         <label htmlFor="breakfast">Breakfast</label>
 
 
-        <input type="checkbox" name="mealType" id="dinner" value="dinner" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="mealType" id="dinner" value="dinner" checked={check["dinner"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="dinner">Dinner</label>
 
-        <input type="checkbox" name="mealType" id="lunch" value="lunch" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="mealType" id="lunch" value="lunch" checked={check["lunch"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="lunch">Lunch</label>
 
 
-        <input type="checkbox" name="mealType" id="snack" value="snack" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="mealType" id="snack" value="snack" checked={check["snack"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="snack">Snack</label>
 
-        <input type="checkbox" name="mealType" id="teatime" value="teatime" onClick={(e) => handleCheck(e)} />
-        <label htmlFor="teatime">Teatime</label>
+        <input type="checkbox" name="mealType" id="teatime" value="teatime"   checked={check["teatime"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
+        <label htmlFor="teatime">Tea time</label>
 
 
 
@@ -204,21 +283,36 @@ const App = () => {
       <div>
         <div><label htmlFor="dishType">Dish Type:</label></div>
 
-        <input type="checkbox" name="dishType" id="drinks" value="drinks" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="dishType" id="drinks" value="drinks" checked={check["drinks"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="drinks">Drinks</label>
 
 
-        <input type="checkbox" name="dishType" id="mainCourse" value="main course" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="dishType" id="mainCourse" value="main course" checked={check["main course"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="mainCourse">Main Course</label>
 
-        <input type="checkbox" name="dishType" id="preps" value="preps" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="dishType" id="preps" value="preps" checked={check["preps"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="preps">Preps</label>
 
 
-        <input type="checkbox" name="dishType" id="sideDish" value="side dish" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="dishType" id="sideDish" value="side dish" checked={check["side dish"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="sideDish">Side Dish</label>
 
-        <input type="checkbox" name="dishType" id="soup" value="soup" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="dishType" id="soup" value="soup" checked={check["soup"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="soup">Soup</label>
 
 
@@ -228,41 +322,71 @@ const App = () => {
       <div>
         <div><label htmlFor="health">Health Preferences:</label></div>
 
-        <input type="checkbox" name="health" id="alcohol-free" value="alcohol-free" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="health" id="alcohol-free" value="alcohol-free" checked={check["alcohol-free"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="alcohol-free">Alcohol-free</label>
 
 
-        <input type="checkbox" name="health" id="vegan" value="vegan" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="health" id="vegan" value="vegan" checked={check["vegan"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="vegan">Vegan</label>
 
-        <input type="checkbox" name="health" id="vegetarian" value="vegetarian" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="health" id="vegetarian" value="vegetarian" checked={check["vegetarian"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="vegetarian">Vegetarian</label>
 
 
-        <input type="checkbox" name="health" id="kidney-friendly" value="kidney-friendly" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="health" id="kidney-friendly" value="kidney-friendly" checked={check["kidney-friendly"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="kidney-friendly">Kidney-friendly</label>
 
-        <input type="checkbox" name="health" id="pork-free" value="pork-free" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="health" id="pork-free" value="pork-free" checked={check["pork-free"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="pork-free">Pork-free</label>
       </div>
       <div>
         <div><label htmlFor="diet">Diet Preferences:</label></div>
 
-        <input type="checkbox" name="diet" id="balanced" value="balanced" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="diet" id="balanced" value="balanced" checked={check["balanced"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="balanced">Balanced</label>
 
 
-        <input type="checkbox" name="diet" id="high-protein" value="high-protein" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="diet" id="high-protein" value="high-protein" checked={check["high-protein"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="high-protein">High-protein</label>
 
-        <input type="checkbox" name="diet" id="low-carb" value="low-carb" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="diet" id="low-carb" value="low-carb" checked={check["low-carb"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="low-carb">Low-carb</label>
 
 
-        <input type="checkbox" name="diet" id="low-fat" value="low-fat" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="diet" id="low-fat" value="low-fat" checked={check["low-fat"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="low-fat">Low-fat</label>
 
-        <input type="checkbox" name="diet" id="low-sodium" value="low-sodium" onClick={(e) => handleCheck(e)} />
+        <input type="checkbox" name="diet" id="low-sodium" value="low-sodium" checked={check["low-sodium"]} onChange={(e) => {
+          handleCheck(e)
+          setCheck({ ...check, [e.target.value]: e.target.checked })
+        }} />
         <label htmlFor="low-sodium">Low-sodium</label>
       </div>
 
@@ -271,12 +395,16 @@ const App = () => {
 
 
         <label htmlFor="calories">Minimum: </label>
-        <input type="number" name="calories" id="minCalories" className="min" min={0} onChange={(e) => handleRange(e)} />
+        <input type="number" name="calories" id="minCalories" className="min" value={value["minCalories"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
         <label htmlFor="calories">Maximum : </label>
-        <input type="number" name="calories" id="maxCalories" className="max" min={0} onChange={(e) => handleRange(e)} />
+        <input type="number" name="calories" id="maxCalories" className="max" value={value["maxCalories"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
@@ -286,12 +414,16 @@ const App = () => {
 
 
         <label htmlFor="ingr">Minimum: </label>
-        <input type="number" name="ingr" id="minIngr" className="min" min={0} onChange={(e) => handleRange(e)} />
+        <input type="number" name="ingr" id="minIngr" className="min" value={value["minIngr"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
         <label htmlFor="ingr">Maximum : </label>
-        <input type="number" name="ingr" id="maxIngr" className="max" min={0} onChange={(e) => handleRange(e)} />
+        <input type="number" name="ingr" id="maxIngr" className="max" value={value["maxIngr"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
@@ -300,17 +432,22 @@ const App = () => {
         <div><label htmlFor="time">Time:</label></div>
 
 
-        <label htmlFor="intimegr">Minimum: </label>
-        <input type="number" name="time" id="minTime" className="min" min={0} onChange={(e) => handleRange(e)} />
+        <label htmlFor="time">Minimum: </label>
+        <input type="number" name="time" id="minTime" className="min" value={value["minTime"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
         <label htmlFor="time">Maximum : </label>
-        <input type="number" name="time" id="maxTime" className="max" min={0} onChange={(e) => handleRange(e)} />
+        <input type="number" name="time" id="maxTime" className="max" value={value["maxTime"]} min={0} onChange={(e) => {handleRange(e)
+        setValue({ ...value, [e.target.id]: e.target.value })
+        }} />
 
 
 
       </div>
+      <button type="reset" onClick={() => handleReset()}>Reset</button>
       <button type="submit">Submit</button>
     </form>
   );
