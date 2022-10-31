@@ -10,11 +10,22 @@ const Header = styled.header`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  div > a {
+    font-size: 1.5rem;
+    color: #fc6011;
+  }
+
   a {
     color: #f0f5f9;
     text-decoration: none;
     :hover {
       color: #fc6011;
+    }
+  }
+  @media (max-width: 880px) {
+    div > a {
+      font-size: 1.3rem;
     }
   }
 `;
@@ -25,6 +36,9 @@ const UL = styled.ul`
   align-items: center;
   list-style: none;
   gap: 3rem;
+  @media (max-width: 880px) {
+    display: none;
+  }
 `;
 
 const Nav = styled.nav`
@@ -32,6 +46,16 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   width: 70%;
+
+  @media (max-width: 1200px) {
+    width: 90%;
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+  @media (max-width: 880px) {
+    /*     width: 90%; */
+  }
 `;
 
 export const Navbar = () => {
@@ -39,7 +63,11 @@ export const Navbar = () => {
     <Header>
       <Nav>
         <div>
-          <NavLink to="/" style={{ fontSize: "1.5rem", color: "#FC6011" }}>
+          <NavLink
+            className="logo"
+            to="/"
+          
+          >
             The World's Food
           </NavLink>
         </div>

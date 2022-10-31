@@ -2,14 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, ImageContainer, Info, InfoDetail, InfoP, Label, Url } from "./Recipes.styled";
 export const Recipes = ({ data }) => {
-  console.log(data)
+/*   console.log(data) */
 
 const navigate= useNavigate();
   return (
 
     <>
       {data.map((data, index) => (
-        <Container key={index} onClick={() => navigate(`${index}`,{state:{data}})}>
+        <Container key={index} onClick={() => navigate(`${data.recipe.label}`,{state:{data}})}>
           <ImageContainer>
             <img src={data.recipe.image} alt="food" />
           </ImageContainer>

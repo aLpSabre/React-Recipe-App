@@ -14,6 +14,7 @@ import {
 } from "../Form/Form.styled";
 const Form = () => {
   const [data, setData] = useState([]);
+  const [reset, setReset] = useState(false);
   const [input, setInput] = useState({
     q: "",
     diet: [],
@@ -66,48 +67,56 @@ const Form = () => {
     maxTime: "",
   });
 
-  const get = async (data) => {
+  const get = async (input) => {
     let url =
       "https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21";
 
-    url = url + "&" + "q=" + (data.q ? data.q : " ");
+    url = url + "&" + "q=" + (input.q ? input.q : " ");
 
-    for (let param in data) {
+    for (let param in input) {
       if (
-        (typeof data[param] === "string" || data[param] instanceof String) &&
-        data[param] !== "" &&
+        (typeof input[param] === "string" || input[param] instanceof String) &&
+        input[param] !== "" &&
         param !== "q"
       ) {
-        if (data[param].indexOf("-") !== -1) {
-          let firstPart = data[param].slice(0, data[param].indexOf("-"));
-          let secondPart = data[param].slice(
-            data[param].indexOf("-") + 1,
-            data[param].length
+        if (input[param].indexOf("-") !== -1) {
+          let firstPart = input[param].slice(0, input[param].indexOf("-"));
+          let secondPart = input[param].slice(
+            input[param].indexOf("-") + 1,
+            input[param].length
           );
           if (Number(firstPart) < Number(secondPart)) {
-            url = url + "&" + `${param}=` + `${data[param]}`;
+            url = url + "&" + `${param}=` + `${input[param]}`;
           } else {
             url = url + "&" + `${param}=` + `${secondPart + "-" + firstPart}`;
           }
           console.log(firstPart, "fir");
           console.log(secondPart, "seonc");
         } else {
-          url = url + "&" + `${param}=` + `${data[param]}`;
+          url = url + "&" + `${param}=` + `${input[param]}`;
         }
 
         console.log("if");
-        console.log(param, data[param]);
-      } else if (data[param].length > 0 && param !== "q") {
+        console.log(param, input[param]);
+      } else if (input[param].length > 0 && param !== "q") {
         console.log("else");
-        console.log(param, data[param]);
-        console.log(data[param].join(" "));
-        url = url + "&" + `${param}=` + `${data[param].join(" ")}`;
+        console.log(param, input[param]);
+        console.log(input[param].join(" "));
+        url = url + "&" + `${param}=` + `${input[param].join(" ")}`;
       }
     }
     console.log(url);
     const response = await axios(url);
     console.log(response);
     setData(response.data.hits);
+
+    /*     console.log(JSON.parse(localStorage.getItem("DATA"))); */
+  /*   localStorage.setItem("DATA", JSON.stringify(response.data.hits));
+    localStorage.setItem("INPUT", JSON.stringify(input));
+    localStorage.setItem("CHECK", JSON.stringify(check));
+    localStorage.setItem("RANGE", JSON.stringify(value)); */
+ 
+
     console.log(Array.isArray(response.data.hits));
     /*     (response.data.hits).map(element => {
           console.log(element.recipe.dishType, "dish")
@@ -117,16 +126,41 @@ const Form = () => {
   };
 
   useEffect(() => {
-    console.log("use effect")
-      get(input);   
+    let localData = JSON.parse(localStorage.getItem("DATA")) || [];
+    setData(localData);
+
+    let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
+    console.log(localInput);
+    localInput.length !== 0 && setInput(localInput);
+
+    let localCheck = JSON.parse(localStorage.getItem("CHECK")) || [];
+    localCheck.length !== 0 && setCheck(localCheck);
+
+    let localRange = JSON.parse(localStorage.getItem("RANGE")) || [];
+    localRange.length !== 0 && setValue(localRange);
+    /*    
+    let localRange=JSON.parse(localStorage.getItem("RANGE")) || [];
+    setValue(localRange);
+    console.log("use effect"); */
+    /*   get(input);    */
     /*     console.log(input.calories, "use effect")
         console.log(input.time,"time effect") */
     /*    console.log(input, "input") */
-    console.log(input.ingr);
-    console.log(input);
+    /*     console.log(input.ingr);
+    console.log(input); */
     /*     console.log(check["low-sodium"]); */
-
   }, []);
+
+  useEffect(() =>{
+    localStorage.setItem("DATA", JSON.stringify(data));
+    localStorage.setItem("INPUT", JSON.stringify(input));
+    localStorage.setItem("CHECK", JSON.stringify(check));
+    localStorage.setItem("RANGE", JSON.stringify(value));
+
+  },[ data,input,check,value ])
+  /*  useEffect(() => {
+  
+  }, [input,check]) */
 
   const handleCheck = (e) => {
     let array = input[e.target.name];
@@ -275,6 +309,7 @@ const Form = () => {
     get(input);
   };
   const handleReset = (e) => {
+ 
     e.preventDefault();
     setInput({
       q: "",
@@ -317,14 +352,16 @@ const Form = () => {
       minTime: "",
       maxTime: "",
     });
+    setData([]);
+    console.log(check);
+ /*    localStorage.setItem("DATA", JSON.stringify([]));
+    localStorage.setItem("INPUT", JSON.stringify(input));
+    localStorage.setItem("CHECK", JSON.stringify(check));
+    localStorage.setItem("RANGE", JSON.stringify(value)); */
   };
   return (
     <>
-      <FormContainer
-        action="get"
-        id="form"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <FormContainer action="get" id="form" onSubmit={(e) => handleSubmit(e)}>
         <OptionContainer>
           <input
             type="text"
@@ -380,7 +417,6 @@ const Form = () => {
             <label htmlFor="dinner">Dinner</label>
           </CheckContainer>
           <CheckContainer>
-       
             <input
               type="checkbox"
               name="mealType"
@@ -781,7 +817,6 @@ const Form = () => {
             </div>
           </RangeContainer>
         </OptionContainer>
-      
       </FormContainer>
 
       <RecipeContainer>

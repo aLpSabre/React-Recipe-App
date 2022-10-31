@@ -10,6 +10,7 @@ const Container = styled.div`
   padding: 0.5rem 1rem;
   border-radius: 10px;
   background-color: #F0F5F9;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   img {
     width: 100%;
     object-fit: cover;

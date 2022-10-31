@@ -9,9 +9,10 @@ const FormContainer = styled.form`
   min-height: 120vh;
   gap: 0.5rem;
   padding: 2rem;
-  border-right: solid 1px #11263c;
-  border-top: solid 1px #11263c;
-  border-bottom: solid 1px #11263c;
+  border-right: solid 3px #f97b3b;
+  border-top: solid 3px #f97b3b;
+  border-bottom: solid 3px #f97b3b;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   color: #11263c;
@@ -78,8 +79,8 @@ const RecipeContainer = styled.div`
   width: 100%;
   min-height: 120vh;
   gap: 2rem;
-  padding: 1rem;
   cursor: pointer;
+
 `;
 
 const OptionContainer = styled.div`
