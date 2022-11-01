@@ -11,8 +11,10 @@ import {
   ButtonContainer,
   Button,
   RecipeContainer,
+  SecondContainer,
 } from "../Form/Form.styled";
 const Form = () => {
+  const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
   const [reset, setReset] = useState(false);
   const [input, setInput] = useState({
@@ -36,7 +38,7 @@ const Form = () => {
     drinks: false,
     "main course": false,
     preps: false,
-    "side dish": false,
+    desserts: false,
     soup: false,
     "alcohol-free": false,
     vegan: false,
@@ -111,11 +113,10 @@ const Form = () => {
     setData(response.data.hits);
 
     /*     console.log(JSON.parse(localStorage.getItem("DATA"))); */
-  /*   localStorage.setItem("DATA", JSON.stringify(response.data.hits));
+    /*   localStorage.setItem("DATA", JSON.stringify(response.data.hits));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
     localStorage.setItem("RANGE", JSON.stringify(value)); */
- 
 
     console.log(Array.isArray(response.data.hits));
     /*     (response.data.hits).map(element => {
@@ -151,13 +152,12 @@ const Form = () => {
     /*     console.log(check["low-sodium"]); */
   }, []);
 
-  useEffect(() =>{
+  useEffect(() => {
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
     localStorage.setItem("RANGE", JSON.stringify(value));
-
-  },[ data,input,check,value ])
+  }, [data, input, check, value]);
   /*  useEffect(() => {
   
   }, [input,check]) */
@@ -309,7 +309,6 @@ const Form = () => {
     get(input);
   };
   const handleReset = (e) => {
- 
     e.preventDefault();
     setInput({
       q: "",
@@ -331,7 +330,7 @@ const Form = () => {
       drinks: false,
       "main course": false,
       preps: false,
-      "side dish": false,
+      desserts: false,
       soup: false,
       "alcohol-free": false,
       vegan: false,
@@ -354,469 +353,487 @@ const Form = () => {
     });
     setData([]);
     console.log(check);
- /*    localStorage.setItem("DATA", JSON.stringify([]));
+    /*    localStorage.setItem("DATA", JSON.stringify([]));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
     localStorage.setItem("RANGE", JSON.stringify(value)); */
   };
   return (
     <>
-      <FormContainer action="get" id="form" onSubmit={(e) => handleSubmit(e)}>
-        <OptionContainer>
-          <input
-            type="text"
-            name="q"
-            id="q"
-            value={input.q}
-            placeholder="Find the recipe.."
-            onChange={(e) =>
-              setInput({ ...input, [e.target.id]: e.target.value })
-            }
-          />
-        </OptionContainer>
-        <ButtonContainer>
-          <Button type="reset" primary onClick={(e) => handleReset(e)}>
-            Reset
-          </Button>
-          <Button type="submit" form="form">
-            Submit
-          </Button>
-        </ButtonContainer>
-
-        <OptionContainer>
-          <div>
-            <label htmlFor="mealType">Meal Type:</label>
-          </div>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="mealType"
-              id="breakfast"
-              value="breakfast"
-              checked={check["breakfast"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-
-            <label htmlFor="breakfast">Breakfast</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="mealType"
-              id="dinner"
-              value="dinner"
-              checked={check["dinner"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="dinner">Dinner</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="mealType"
-              id="lunch"
-              value="lunch"
-              checked={check["lunch"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="lunch">Lunch</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="mealType"
-              id="snack"
-              value="snack"
-              checked={check["snack"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="snack">Snack</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="mealType"
-              id="teatime"
-              value="teatime"
-              checked={check["teatime"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="teatime">Tea time</label>
-          </CheckContainer>
-        </OptionContainer>
-        <OptionContainer>
-          <div>
-            <label htmlFor="dishType">Dish Type:</label>
-          </div>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="dishType"
-              id="drinks"
-              value="drinks"
-              checked={check["drinks"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="drinks">Drinks</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="dishType"
-              id="mainCourse"
-              value="main course"
-              checked={check["main course"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="mainCourse">Main Course</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="dishType"
-              id="preps"
-              value="preps"
-              checked={check["preps"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="preps">Preps</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="dishType"
-              id="sideDish"
-              value="side dish"
-              checked={check["side dish"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="sideDish">Side Dish</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="checkbox"
-              name="dishType"
-              id="soup"
-              value="soup"
-              checked={check["soup"]}
-              onChange={(e) => {
-                handleCheck(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="soup">Soup</label>
-          </CheckContainer>
-        </OptionContainer>
-
-        <OptionContainer>
-          <div>
-            <label htmlFor="health">Health Preferences:</label>
-          </div>
-          <CheckContainer>
-            <input
-              type="radio"
-              name="health"
-              id="alcohol-free"
-              value="alcohol-free"
-              checked={check["alcohol-free"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="alcohol-free">Alcohol-free</label>
-          </CheckContainer>
-          <CheckContainer>
-            {" "}
-            <input
-              type="radio"
-              name="health"
-              id="vegan"
-              value="vegan"
-              checked={check["vegan"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="vegan">Vegan</label>
-          </CheckContainer>
-          <CheckContainer>
-            {" "}
-            <input
-              type="radio"
-              name="health"
-              id="vegetarian"
-              value="vegetarian"
-              checked={check["vegetarian"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="vegetarian">Vegetarian</label>
-          </CheckContainer>
-          <CheckContainer>
-            {" "}
-            <input
-              type="radio"
-              name="health"
-              id="kidney-friendly"
-              value="kidney-friendly"
-              checked={check["kidney-friendly"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="kidney-friendly">Kidney-friendly</label>
-          </CheckContainer>
-
-          <CheckContainer>
-            {" "}
-            <input
-              type="radio"
-              name="health"
-              id="pork-free"
-              value="pork-free"
-              checked={check["pork-free"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="pork-free">Pork-free</label>
-          </CheckContainer>
-        </OptionContainer>
-        <OptionContainer>
-          <div>
-            <label htmlFor="diet">Diet Preferences:</label>
-          </div>
-          <CheckContainer>
-            <input
-              type="radio"
-              name="diet"
-              id="balanced"
-              value="balanced"
-              checked={check["balanced"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="balanced">Balanced</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="radio"
-              name="diet"
-              id="high-protein"
-              value="high-protein"
-              checked={check["high-protein"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="high-protein">High-protein</label>
-          </CheckContainer>
-
-          <CheckContainer>
-            <input
-              type="radio"
-              name="diet"
-              id="low-carb"
-              value="low-carb"
-              checked={check["low-carb"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-              }}
-            />
-            <label htmlFor="low-carb">Low-carb</label>
-          </CheckContainer>
-          <CheckContainer>
-            <input
-              type="radio"
-              name="diet"
-              id="low-fat"
-              value="low-fat"
-              checked={check["low-fat"]}
-              onChange={(e) => {
-                handleRadio(e);
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-                console.log(check["low-sodium"]);
-              }}
-            />
-            <label htmlFor="low-fat">Low-fat</label>
-          </CheckContainer>
-
-          <CheckContainer>
-            <input
-              type="radio"
-              name="diet"
-              id="low-sodium"
-              value="low-sodium"
-              checked={check["low-sodium"]}
-              onChange={(e) => {
-                setCheck({ ...check, [e.target.value]: e.target.checked });
-                handleRadio(e);
-
-                console.log(check["low-sodium"]);
-              }}
-            />
-            <label htmlFor="low-sodium">Low-sodium</label>
-          </CheckContainer>
-        </OptionContainer>
-
-        <OptionContainer>
-          <div>
-            <label htmlFor="calories">Calories:</label>
-          </div>
-
-          <RangeContainer>
-            <div>
-              <label htmlFor="calories">Min:</label>
+      <FormContainer
+        action="get"
+        id="form"
+        primary={show ? "show" : "notshow"}
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <div className="first">
+          <OptionContainer>
+            <CheckContainer>
               <input
-                type="number"
-                name="calories"
-                id="minCalories"
-                className="min"
-                value={value["minCalories"]}
-                min={0}
-                placeholder="0"
+                type="text"
+                name="q"
+                id="q"
+                value={input.q}
+                placeholder="Find the recipe.."
+                onChange={(e) =>
+                  setInput({ ...input, [e.target.id]: e.target.value })
+                }
+              />
+            </CheckContainer>
+          </OptionContainer>
+        </div>
+        <CheckContainer>
+          <ButtonContainer>
+            <Button type="reset" primary onClick={(e) => handleReset(e)}>
+              Reset
+            </Button>
+            <Button type="submit" form="form">
+              Submit
+            </Button>
+          </ButtonContainer>
+        </CheckContainer>
+        <div className="filter">
+          <p onClick={() => setShow(!show)}>
+            Filters
+            <i
+              className={show ? "fa fa-arrow-down" : "fa fa-arrow-up"}
+              aria-hidden="true"
+            ></i>
+          </p>
+        </div>
+        <SecondContainer primary={show ? "show" : "notshow"}>
+          <OptionContainer>
+            <div>
+              <label htmlFor="mealType">Meal Type:</label>
+            </div>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="mealType"
+                id="breakfast"
+                value="breakfast"
+                checked={check["breakfast"]}
                 onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
                 }}
               />
-            </div>
-            <div>
-              <label htmlFor="calories">Max:</label>
-              <input
-                type="number"
-                name="calories"
-                id="maxCalories"
-                className="max"
-                value={value["maxCalories"]}
-                min={0}
-                placeholder="0"
-                onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
-                }}
-              />
-            </div>
-          </RangeContainer>
-        </OptionContainer>
 
-        <OptionContainer>
-          <div>
-            <label htmlFor="ingr">Ingridients</label>
-          </div>
-          <RangeContainer>
-            <div>
-              <label htmlFor="ingr">Min:</label>
+              <label htmlFor="breakfast">Breakfast</label>
+            </CheckContainer>
+            <CheckContainer>
               <input
-                type="number"
-                name="ingr"
-                id="minIngr"
-                className="min"
-                value={value["minIngr"]}
-                min={0}
-                placeholder="0"
+                type="checkbox"
+                name="mealType"
+                id="dinner"
+                value="dinner"
+                checked={check["dinner"]}
                 onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
                 }}
               />
-            </div>
+              <label htmlFor="dinner">Dinner</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="mealType"
+                id="lunch"
+                value="lunch"
+                checked={check["lunch"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="lunch">Lunch</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="mealType"
+                id="snack"
+                value="snack"
+                checked={check["snack"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="snack">Snack</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="mealType"
+                id="teatime"
+                value="teatime"
+                checked={check["teatime"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="teatime">Tea time</label>
+            </CheckContainer>
+          </OptionContainer>
+          <OptionContainer>
             <div>
+              <label htmlFor="dishType">Dish Type:</label>
+            </div>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="dishType"
+                id="drinks"
+                value="drinks"
+                checked={check["drinks"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="drinks">Drinks</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="dishType"
+                id="mainCourse"
+                value="main course"
+                checked={check["main course"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="mainCourse">Main Course</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="dishType"
+                id="preps"
+                value="preps"
+                checked={check["preps"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="preps">Preps</label>
+            </CheckContainer>
+
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="dishType"
+                id="soup"
+                value="soup"
+                checked={check["soup"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="soup">Soup</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="checkbox"
+                name="dishType"
+                id="desserts"
+                value="desserts"
+                checked={check["desserts"]}
+                onChange={(e) => {
+                  handleCheck(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="desserts">Desserts</label>
+            </CheckContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <div>
+              <label htmlFor="health">Health Preferences:</label>
+            </div>
+            <CheckContainer>
+              <input
+                type="radio"
+                name="health"
+                id="alcohol-free"
+                value="alcohol-free"
+                checked={check["alcohol-free"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="alcohol-free">Alcohol-free</label>
+            </CheckContainer>
+            <CheckContainer>
               {" "}
-              <label htmlFor="ingr">Max:</label>
               <input
-                type="number"
-                name="ingr"
-                id="maxIngr"
-                className="max"
-                value={value["maxIngr"]}
-                min={0}
-                placeholder="0"
+                type="radio"
+                name="health"
+                id="vegan"
+                value="vegan"
+                checked={check["vegan"]}
                 onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
                 }}
               />
-            </div>
-          </RangeContainer>
-        </OptionContainer>
+              <label htmlFor="vegan">Vegan</label>
+            </CheckContainer>
+            <CheckContainer>
+              {" "}
+              <input
+                type="radio"
+                name="health"
+                id="vegetarian"
+                value="vegetarian"
+                checked={check["vegetarian"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="vegetarian">Vegetarian</label>
+            </CheckContainer>
+            <CheckContainer>
+              {" "}
+              <input
+                type="radio"
+                name="health"
+                id="kidney-friendly"
+                value="kidney-friendly"
+                checked={check["kidney-friendly"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="kidney-friendly">Kidney-friendly</label>
+            </CheckContainer>
 
-        <OptionContainer>
-          <div>
-            <label htmlFor="time">Time:</label>
-          </div>
-          <RangeContainer>
-            <div>
-              <label htmlFor="time">Min:</label>
+            <CheckContainer>
+              {" "}
               <input
-                type="number"
-                name="time"
-                id="minTime"
-                className="min"
-                value={value["minTime"]}
-                min={0}
-                placeholder="0"
+                type="radio"
+                name="health"
+                id="pork-free"
+                value="pork-free"
+                checked={check["pork-free"]}
                 onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
                 }}
               />
-            </div>
+              <label htmlFor="pork-free">Pork-free</label>
+            </CheckContainer>
+          </OptionContainer>
+          <OptionContainer>
             <div>
-              <label htmlFor="time">Max:</label>
+              <label htmlFor="diet">Diet Preferences:</label>
+            </div>
+            <CheckContainer>
               <input
-                type="number"
-                name="time"
-                id="maxTime"
-                className="max"
-                value={value["maxTime"]}
-                min={0}
-                placeholder="0"
+                type="radio"
+                name="diet"
+                id="balanced"
+                value="balanced"
+                checked={check["balanced"]}
                 onChange={(e) => {
-                  handleRange(e);
-                  setValue({ ...value, [e.target.id]: e.target.value });
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
                 }}
               />
+              <label htmlFor="balanced">Balanced</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="radio"
+                name="diet"
+                id="high-protein"
+                value="high-protein"
+                checked={check["high-protein"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="high-protein">High-protein</label>
+            </CheckContainer>
+
+            <CheckContainer>
+              <input
+                type="radio"
+                name="diet"
+                id="low-carb"
+                value="low-carb"
+                checked={check["low-carb"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                }}
+              />
+              <label htmlFor="low-carb">Low-carb</label>
+            </CheckContainer>
+            <CheckContainer>
+              <input
+                type="radio"
+                name="diet"
+                id="low-fat"
+                value="low-fat"
+                checked={check["low-fat"]}
+                onChange={(e) => {
+                  handleRadio(e);
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                  console.log(check["low-sodium"]);
+                }}
+              />
+              <label htmlFor="low-fat">Low-fat</label>
+            </CheckContainer>
+
+            <CheckContainer>
+              <input
+                type="radio"
+                name="diet"
+                id="low-sodium"
+                value="low-sodium"
+                checked={check["low-sodium"]}
+                onChange={(e) => {
+                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                  handleRadio(e);
+
+                  console.log(check["low-sodium"]);
+                }}
+              />
+              <label htmlFor="low-sodium">Low-sodium</label>
+            </CheckContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <div>
+              <label htmlFor="calories">Calories:</label>
             </div>
-          </RangeContainer>
-        </OptionContainer>
+
+            <RangeContainer>
+              <div>
+                <label htmlFor="calories">Min:</label>
+                <input
+                  type="number"
+                  name="calories"
+                  id="minCalories"
+                  className="min"
+                  value={value["minCalories"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+              <div>
+                <label htmlFor="calories">Max:</label>
+                <input
+                  type="number"
+                  name="calories"
+                  id="maxCalories"
+                  className="max"
+                  value={value["maxCalories"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+            </RangeContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <div>
+              <label htmlFor="ingr">Ingridients</label>
+            </div>
+            <RangeContainer>
+              <div>
+                <label htmlFor="ingr">Min:</label>
+                <input
+                  type="number"
+                  name="ingr"
+                  id="minIngr"
+                  className="min"
+                  value={value["minIngr"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+              <div>
+                {" "}
+                <label htmlFor="ingr">Max:</label>
+                <input
+                  type="number"
+                  name="ingr"
+                  id="maxIngr"
+                  className="max"
+                  value={value["maxIngr"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+            </RangeContainer>
+          </OptionContainer>
+          <OptionContainer>
+            <div>
+              <label htmlFor="time">Time:</label>
+            </div>
+            <RangeContainer>
+              <div>
+                <label htmlFor="time">Min:</label>
+                <input
+                  type="number"
+                  name="time"
+                  id="minTime"
+                  className="min"
+                  value={value["minTime"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+              <div>
+                <label htmlFor="time">Max:</label>
+                <input
+                  type="number"
+                  name="time"
+                  id="maxTime"
+                  className="max"
+                  value={value["maxTime"]}
+                  min={0}
+                  placeholder="0"
+                  onChange={(e) => {
+                    handleRange(e);
+                    setValue({ ...value, [e.target.id]: e.target.value });
+                  }}
+                />
+              </div>
+            </RangeContainer>
+          </OptionContainer>
+        </SecondContainer>
       </FormContainer>
 
       <RecipeContainer>

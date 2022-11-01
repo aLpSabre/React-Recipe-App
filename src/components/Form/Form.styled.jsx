@@ -6,7 +6,7 @@ const FormContainer = styled.form`
   align-items: flex-start;
   flex-direction: column;
   width: 25%;
-  min-height: 120vh;
+  min-height: 110vh;
   gap: 0.5rem;
   padding: 2rem;
   border-right: solid 3px #f97b3b;
@@ -17,7 +17,11 @@ const FormContainer = styled.form`
   border-bottom-right-radius: 10px;
   color: #11263c;
   cursor: pointer;
-
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
+  label {
+    cursor: pointer;
+  }
   input[type="number"] {
     width: 60px;
     padding: 4px 8px;
@@ -28,6 +32,7 @@ const FormContainer = styled.form`
   }
 
   input[type="text"] {
+    width: 100%;
     padding: 10px;
     border: solid 1px #11263c;
     outline: none;
@@ -69,6 +74,39 @@ const FormContainer = styled.form`
       }
     }
   }
+  .first {
+    width: 100%;
+  }
+  .filter{
+    display: none;
+  }
+  @media (max-width: 1000px) {
+    width: 90%;
+    border: solid 3px #f97b3b;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    min-height: 0vh;
+    height: auto;
+/*     height: ${({ primary }) => (primary === "show" ? "auto" : "23vh")}; */
+    .filter{
+      display: block;
+      font-size: 1.2rem;
+      margin: 0.5rem;
+      font-weight: bold;
+      i{
+        color:#f97b3b;
+      }
+
+    }
+  }
+`;
+const SecondContainer = styled.div`
+  width: 100%;
+
+  @media (max-width: 1000px) {
+    display: ${({ primary }) => (primary === "show" ? "static" : "none")};
+  }
 `;
 
 const RecipeContainer = styled.div`
@@ -76,11 +114,10 @@ const RecipeContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   align-items: flex-start;
-  width: 100%;
+  width: 95%;
   min-height: 120vh;
   gap: 2rem;
   cursor: pointer;
-
 `;
 
 const OptionContainer = styled.div`
@@ -113,7 +150,7 @@ const ButtonContainer = styled(CheckContainer)`
   margin-bottom: 0.5rem;
 `;
 const Button = styled.button`
-  width: 120px;
+  width: 100%;
   border: none;
   border-radius: 15px;
   padding: 0.5rem 1rem;
@@ -131,4 +168,5 @@ export {
   ButtonContainer,
   Button,
   RecipeContainer,
+  SecondContainer,
 };

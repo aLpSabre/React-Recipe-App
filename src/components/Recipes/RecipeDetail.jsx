@@ -17,6 +17,7 @@ const Container = styled.div`
   color: #11263c;
   padding: 2rem 0;
   cursor: pointer;
+ 
   h1,
   h2 {
     color: #fc6011;
@@ -211,6 +212,10 @@ export const RecipeDetail = () => {
   }, []);
 /* console.log(Array.isArray (recipe?.ingredientLines))
  recipe?.ingredientLines.map(e => console.log(e))    */
+
+ if(recipe.length===0){
+  return (<div>loading</div>)
+ }
   return (
 
 <Container>

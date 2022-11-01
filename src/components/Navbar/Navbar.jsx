@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-
+import hamburger from "../../img/icon-hamburger.svg";
+import close from "../../img/icon-close.svg";
 const Header = styled.header`
   width: 100%;
   background-color: #11263c;
@@ -23,9 +24,14 @@ const Header = styled.header`
       color: #fc6011;
     }
   }
+  img {
+    display: none;
+  }
   @media (max-width: 880px) {
-    div > a {
-      font-size: 1.3rem;
+    padding: 2rem 1rem;
+
+    img {
+      display: inline-block;
     }
   }
 `;
@@ -37,7 +43,9 @@ const UL = styled.ul`
   list-style: none;
   gap: 3rem;
   @media (max-width: 880px) {
-    display: none;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1.2rem;
   }
 `;
 
@@ -46,7 +54,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   width: 70%;
-
+  overflow: hidden;
   @media (max-width: 1200px) {
     width: 90%;
     h1 {
@@ -54,23 +62,40 @@ const Nav = styled.nav`
     }
   }
   @media (max-width: 880px) {
-    /*     width: 90%; */
+    width: 95%;
+    flex-direction: column;
+    /*   height: 25vh; */
+    transition: height 0.5s ease-in-out;
+    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
+    .md-toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 `;
 
 export const Navbar = () => {
+  const [show, setShow] = useState(false);
   return (
     <Header>
-      <Nav>
-        <div>
-          <NavLink
-            className="logo"
-            to="/"
-          
-          >
+      <Nav primary={show ? "show" : "notshow"}>
+        <div className="md-toggle">
+          <NavLink className="logo" to="/">
             The World's Food
           </NavLink>
+          <div>
+            <img
+              src={show ? close : hamburger}
+              alt="hamburger"
+              onClick={() => setShow(!show)}
+              className="hamburger"
+            />
+            {/*  <i class="fa fa-times" aria-hidden="true"></i> */}
+          </div>
         </div>
+
         <UL>
           <li>
             <NavLink
