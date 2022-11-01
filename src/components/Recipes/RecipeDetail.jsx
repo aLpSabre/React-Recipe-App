@@ -2,8 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -99,6 +98,22 @@ const SpanContainer = styled.div`
   gap: 0.5rem;
   width: 100%;
   cursor: pointer;
+  span {
+    text-transform: capitalize;
+    background-color: #f0f5f9;
+    width: 150px;
+    font-weight: bold;
+    padding: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    :hover {
+      color: #fc6011;
+    }
+  }
 `;
 const Spans = styled.span`
   text-transform: capitalize;
@@ -173,39 +188,188 @@ const Button = styled.button`
   }
 `;
 export const RecipeDetail = () => {
-  const {
+/*   const {
     state: { data },
-  } = useLocation();
+  } = useLocation(); */
   /*   console.log(data);
   console.log(typeof data);
   console.log(data.recipe); */
   const [recipe, setRecipe] = useState([]);
-/*   const get = () => {
-    console.log(data.recipe.uri)
-    let url =
-      `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=`;
-    let uri ="http://www.edamam.com/ontologies/edamam.owl#23recipe_b79327d05b8e5b838ad6cfd9576b30b6`"
-
-    url =url+uri.slice(0,uri.indexOf("#"))+"%"+uri.slice(uri.indexOf("#")+1,uri.length);
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }; */
-
+  const { id } = useParams();
+  const get = async () => {
+    const response = await axios(
+      `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
+    );
+    console.log();
+  setRecipe(response.data[0]);
+  
+  };
   useEffect(() => {
-  /*   get(); */
- /*    console.log(recipe); */
+    get()
+  
+    /*    console.log(recipe); */
   }, []);
-
+/* console.log(Array.isArray (recipe?.ingredientLines))
+ recipe?.ingredientLines.map(e => console.log(e))    */
   return (
-    <Container key={data?.recipe?.label}>
-      <h1>{data?.recipe?.label}</h1>
+
+<Container>
+  <h1>{recipe?.label}</h1>
+  <Header>
+    <div>
+      <ImageContainer>
+        <img src={recipe?.image} alt="" />
+      </ImageContainer>
+    </div>
+    <div>
+      {" "}
+      <InfoContainer>
+        <InfoDetail>
+          <InfoTitle>Total Time:</InfoTitle>
+          <p>{recipe?.totalTime ? recipe?.totalTime: "Not given"}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Total Calories:</InfoTitle>
+          <p>{Math.trunc(recipe?.calories)}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Ingredients</InfoTitle>
+          <p>{[recipe?.ingredients].length}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Servings:</InfoTitle>
+          <p>{recipe?.yield}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Cuisine Type: </InfoTitle>
+          {recipe?.cuisineType?.map((element,index) => (
+            <p key={index}>{element}</p>
+          ))}
+        </InfoDetail>
+
+        <InfoDetail>
+          <InfoTitle>Dish Type: </InfoTitle>
+          {recipe?.dishType?.map((element,index) => (
+            <p key={index}>{element}</p>
+          ))}
+        </InfoDetail>
+      </InfoContainer>
+    </div>
+  </Header>
+
+  <SpanContainer>
+    {recipe?.healthLabels?.map((element,index) => (
+      <Spans key={index}>{element}</Spans>
+    ))}
+  </SpanContainer>
+
+  <Ingr>
+    <div>
+      <h2>{recipe?.ingredients?.length} Ingredients </h2>
+      <ul>
+        {recipe?.ingredientLines?.map((element,index) => (
+          <li key={index}>{element}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Preparation</h2>
+      <Button>
+        <a href={recipe?.url} target="_blank">
+          Instructions
+        </a>{" "}
+      </Button>
+      <a href={recipe?.url} target="_blank">
+        on {recipe?.source}
+      </a>
+    </div>
+  </Ingr>
+</Container>
+   
+  );
+
+
+/*   <Container key={recipe?.label}>
+  <h1>{recipe?.label}</h1>
+  <Header>
+    <div>
+      <ImageContainer>
+        <img src={recipe?.image} alt="" />
+      </ImageContainer>
+    </div>
+    <div>
+      {" "}
+      <InfoContainer>
+        <InfoDetail>
+          <InfoTitle>Total Time:</InfoTitle>
+          <p>{recipe?.totalTime ? recipe?.totalTime: "Not given"}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Total Calories:</InfoTitle>
+          <p>{Math.trunc(recipe?.calories)}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Ingredients</InfoTitle>
+          <p>{[recipe?.ingredients].length}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Servings:</InfoTitle>
+          <p>{recipe?.yield}</p>
+        </InfoDetail>
+        <InfoDetail>
+          <InfoTitle>Cuisine Type: </InfoTitle>
+          {[recipe?.cuisineType].map((element) => (
+            <p>{element}</p>
+          ))}
+        </InfoDetail>
+
+        <InfoDetail>
+          <InfoTitle>Dish Type: </InfoTitle>
+          {[recipe?.dishType].map((element) => (
+            <p>{element}</p>
+          ))}
+        </InfoDetail>
+      </InfoContainer>
+    </div>
+  </Header>
+
+  <SpanContainer>
+    {[recipe?.healthLabels].map((element) => (
+      <Spans>{element}</Spans>
+    ))}
+  </SpanContainer>
+
+  <Ingr>
+    <div>
+      <h2>{[recipe?.ingredients].length} Ingredients </h2>
+      <ul>
+        {[recipe?.ingredientLines].map((element) => (
+          <li>{element}</li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2>Preparation</h2>
+      <Button>
+        <a href={recipe?.url} target="_blank">
+          Instructions
+        </a>{" "}
+      </Button>
+      <a href={recipe?.url} target="_blank">
+        on {recipe?.source}
+      </a>
+    </div>
+  </Ingr>
+</Container> */
+
+
+  {
+    /* <Container key={recipe?.label}>
+      <h1>{recipe?.label}</h1>
       <Header>
         <div>
           <ImageContainer>
-            <img src={data?.recipe?.image} alt="" />
+            <img src={recipe?.image} alt="" />
           </ImageContainer>
         </div>
         <div>
@@ -213,34 +377,30 @@ export const RecipeDetail = () => {
           <InfoContainer>
             <InfoDetail>
               <InfoTitle>Total Time:</InfoTitle>
-              <p>
-                {data?.recipe?.totalTime
-                  ? data?.recipe?.totalTime
-                  : "Not given"}
-              </p>
+              <p>{recipe?.totalTime ? recipe?.totalTime : "Not given"}</p>
             </InfoDetail>
             <InfoDetail>
               <InfoTitle>Total Calories:</InfoTitle>
-              <p>{Math.trunc(data?.recipe?.calories)}</p>
+              <p>{Math.trunc(recipe?.calories)}</p>
             </InfoDetail>
             <InfoDetail>
               <InfoTitle>Ingredients</InfoTitle>
-              <p>{data?.recipe?.ingredients.length}</p>
+              <p>{recipe?.ingredients.length}</p>
             </InfoDetail>
             <InfoDetail>
               <InfoTitle>Servings:</InfoTitle>
-              <p>{data?.recipe?.yield}</p>
+              <p>{recipe?.yield}</p>
             </InfoDetail>
             <InfoDetail>
               <InfoTitle>Cuisine Type: </InfoTitle>
-              {data?.recipe?.cuisineType.map((element) => (
+              {recipe?.cuisineType.map((element) => (
                 <p>{element}</p>
               ))}
             </InfoDetail>
 
             <InfoDetail>
               <InfoTitle>Dish Type: </InfoTitle>
-              {data?.recipe?.dishType.map((element) => (
+              {recipe?.dishType.map((element) => (
                 <p>{element}</p>
               ))}
             </InfoDetail>
@@ -249,16 +409,16 @@ export const RecipeDetail = () => {
       </Header>
 
       <SpanContainer>
-        {data?.recipe?.healthLabels.map((element) => (
+        {recipe?.healthLabels.map((element) => (
           <Spans>{element}</Spans>
         ))}
       </SpanContainer>
 
       <Ingr>
         <div>
-          <h2>{data?.recipe?.ingredients.length} Ingredients </h2>
+          <h2>{recipe?.ingredients.length} Ingredients </h2>
           <ul>
-            {data?.recipe?.ingredientLines.map((element) => (
+            {recipe?.ingredientLines.map((element) => (
               <li>{element}</li>
             ))}
           </ul>
@@ -266,15 +426,15 @@ export const RecipeDetail = () => {
         <div>
           <h2>Preparation</h2>
           <Button>
-            <a href={data?.recipe?.url} target="_blank">
+            <a href={recipe?.url} target="_blank">
               Instructions
             </a>{" "}
           </Button>
-          <a href={data?.recipe?.url} target="_blank">
-            on {data?.recipe?.source}
+          <a href={recipe?.url} target="_blank">
+            on {recipe?.source}
           </a>
         </div>
       </Ingr>
-    </Container>
-  );
+    </Container> */
+  }
 };

@@ -9,7 +9,7 @@ const navigate= useNavigate();
 
     <>
       {data.map((data, index) => (
-        <Container key={index} onClick={() => navigate(`${data.recipe.label}`,{state:{data}})}>
+        <Container key={index} onClick={() => navigate(`${data.recipe.uri.slice(data.recipe.uri.indexOf("#")+1,data.recipe.uri.length)}`,{state:{data}})}>
           <ImageContainer>
             <img src={data.recipe.image} alt="food" />
           </ImageContainer>
