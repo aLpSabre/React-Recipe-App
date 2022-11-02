@@ -153,6 +153,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
+    console.log(check)
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
@@ -182,10 +183,42 @@ const Form = () => {
     console.log(array, "array");
     console.log(e.target.id, "target id");
     console.log(e.target.checked);
+    const health = [
+      "alcohol-free",
+      "vegan",
+      "vegetarian",
+      "kidney-friendly",
+      "pork-free",
+    ];
+    const diet = [
+      "balanced",
+      "high-protein",
+      "low-carb",
+      "low-fat",
+      "low-sodium",
+    ];
     if (e.target.checked) {
       array = [];
       array.push(e.target.value);
       console.log(array, "array son");
+      console.log(typeof e.target.value)
+      console.log(health.indexOf(e.target.value) !== -1);
+      if(health.indexOf(e.target.value) !== -1){
+     /*    console.log(e.target.value)
+        console.log(health[0] ===  e.target.value)
+        const a= health.filter(element => element !== e.target.value);
+        console.log(a); */
+    /*     return setCheck({...check,["alcohol-free"]: false}) */
+      health.filter(element => element !== e.target.value).map(element =>{
+   /*      console.log(element,check[element]); */
+        
+         setCheck({...check,[element]: false})
+
+      /*   console.log(element,check[element],"after check"); */
+
+      }  ); 
+/*        console.log(check); */
+      }
       return setInput({ ...input, [e.target.name]: array });
     }
   };
@@ -560,7 +593,7 @@ const Form = () => {
             </div>
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="health"
                 id="alcohol-free"
                 value="alcohol-free"
@@ -575,7 +608,7 @@ const Form = () => {
             <CheckContainer>
               {" "}
               <input
-                type="radio"
+                type="checkbox"
                 name="health"
                 id="vegan"
                 value="vegan"
@@ -590,7 +623,7 @@ const Form = () => {
             <CheckContainer>
               {" "}
               <input
-                type="radio"
+                type="checkbox"
                 name="health"
                 id="vegetarian"
                 value="vegetarian"
@@ -605,7 +638,7 @@ const Form = () => {
             <CheckContainer>
               {" "}
               <input
-                type="radio"
+                type="checkbox"
                 name="health"
                 id="kidney-friendly"
                 value="kidney-friendly"
@@ -621,7 +654,7 @@ const Form = () => {
             <CheckContainer>
               {" "}
               <input
-                type="radio"
+                type="checkbox"
                 name="health"
                 id="pork-free"
                 value="pork-free"
@@ -640,7 +673,7 @@ const Form = () => {
             </div>
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="diet"
                 id="balanced"
                 value="balanced"
@@ -654,7 +687,7 @@ const Form = () => {
             </CheckContainer>
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="diet"
                 id="high-protein"
                 value="high-protein"
@@ -669,7 +702,7 @@ const Form = () => {
 
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="diet"
                 id="low-carb"
                 value="low-carb"
@@ -683,7 +716,7 @@ const Form = () => {
             </CheckContainer>
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="diet"
                 id="low-fat"
                 value="low-fat"
@@ -699,7 +732,7 @@ const Form = () => {
 
             <CheckContainer>
               <input
-                type="radio"
+                type="checkbox"
                 name="diet"
                 id="low-sodium"
                 value="low-sodium"
