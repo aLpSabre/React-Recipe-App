@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { Children, useEffect } from "react";
 import { useState } from "react";
 import { Recipes } from "../../components/Recipes/Recipes";
 import {
@@ -153,7 +153,8 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    console.log(check)
+    console.log(check);
+    console.log(input);
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
@@ -201,24 +202,30 @@ const Form = () => {
       array = [];
       array.push(e.target.value);
       console.log(array, "array son");
-      console.log(typeof e.target.value)
+      console.log(typeof e.target.value);
+    /*   console.log(e.target.name,"name") */
       console.log(health.indexOf(e.target.value) !== -1);
-      if(health.indexOf(e.target.value) !== -1){
-     /*    console.log(e.target.value)
+      const obje = {};
+      if (health.indexOf(e.target.value) !== -1) {
+       
+        /*    console.log(e.target.value)
         console.log(health[0] ===  e.target.value)
         const a= health.filter(element => element !== e.target.value);
         console.log(a); */
-    /*     return setCheck({...check,["alcohol-free"]: false}) */
-      health.filter(element => element !== e.target.value).map(element =>{
-   /*      console.log(element,check[element]); */
-        
-         setCheck({...check,[element]: false})
+        /*     return setCheck({...check,["alcohol-free"]: false}) */
 
-      /*   console.log(element,check[element],"after check"); */
+        health
+          .filter((element) => element !== e.target.value)
+          .map((element) =>obje[element]=false);
+          setCheck({...check,...obje,[e.target.value]:e.target.checked})
+          console.log("hi")
+     /*    console.log(obje, "obje"); */
+        /*      console.log(element,check[element]); */
+        /*   console.log(element,check[element],"after check"); */
 
-      }  ); 
-/*        console.log(check); */
+        /*        console.log(check); */
       }
+      console.log(e.target.name);
       return setInput({ ...input, [e.target.name]: array });
     }
   };
@@ -594,13 +601,17 @@ const Form = () => {
             <CheckContainer>
               <input
                 type="checkbox"
-                name="health"
+                name="health" 
                 id="alcohol-free"
                 value="alcohol-free"
                 checked={check["alcohol-free"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                  console.log(check,"first");
+                 /*  setCheck({ ...check, vegan: false }); 
+                  console.log(check,"second");
+                  setCheck({ ...check, [e.target.value]: e.target.checked }) */
+
                 }}
               />
               <label htmlFor="alcohol-free">Alcohol-free</label>
@@ -609,13 +620,13 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health"
+                name="health" 
                 id="vegan"
                 value="vegan"
                 checked={check["vegan"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+               /*    setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="vegan">Vegan</label>
@@ -624,13 +635,13 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health"
+                name="health" 
                 id="vegetarian"
                 value="vegetarian"
                 checked={check["vegetarian"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                /*  setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="vegetarian">Vegetarian</label>
@@ -639,13 +650,13 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health"
+                name="health" 
                 id="kidney-friendly"
                 value="kidney-friendly"
                 checked={check["kidney-friendly"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                /*   setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="kidney-friendly">Kidney-friendly</label>
@@ -655,13 +666,13 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health"
+                name="health" 
                 id="pork-free"
                 value="pork-free"
                 checked={check["pork-free"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+            /*       setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="pork-free">Pork-free</label>
