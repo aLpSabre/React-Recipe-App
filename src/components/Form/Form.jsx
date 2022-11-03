@@ -224,10 +224,21 @@ const Form = () => {
         /*   console.log(element,check[element],"after check"); */
 
         /*        console.log(check); */
+      }else{
+       
+        diet
+          .filter((element) => element !== e.target.value)
+          .map((element) =>obje[element]=false);
+          setCheck({...check,...obje,[e.target.value]:e.target.checked})
+          console.log("hi")
       }
       console.log(e.target.name);
-      return setInput({ ...input, [e.target.name]: array });
+   
+    }else{
+      array=[]
+      setCheck({...check,[e.target.value]:false})
     }
+    return setInput({ ...input, [e.target.name]: array });
   };
 
   const handleRange = (e) => {
@@ -691,7 +702,7 @@ const Form = () => {
                 checked={check["balanced"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+                /*   setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="balanced">Balanced</label>
@@ -705,7 +716,7 @@ const Form = () => {
                 checked={check["high-protein"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+              /*     setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="high-protein">High-protein</label>
@@ -720,7 +731,7 @@ const Form = () => {
                 checked={check["low-carb"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+               /*    setCheck({ ...check, [e.target.value]: e.target.checked }); */
                 }}
               />
               <label htmlFor="low-carb">Low-carb</label>
@@ -734,8 +745,8 @@ const Form = () => {
                 checked={check["low-fat"]}
                 onChange={(e) => {
                   handleRadio(e);
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
-                  console.log(check["low-sodium"]);
+                /*   setCheck({ ...check, [e.target.value]: e.target.checked }); */
+             
                 }}
               />
               <label htmlFor="low-fat">Low-fat</label>
@@ -749,10 +760,10 @@ const Form = () => {
                 value="low-sodium"
                 checked={check["low-sodium"]}
                 onChange={(e) => {
-                  setCheck({ ...check, [e.target.value]: e.target.checked });
+             /*      setCheck({ ...check, [e.target.value]: e.target.checked }); */
                   handleRadio(e);
 
-                  console.log(check["low-sodium"]);
+           
                 }}
               />
               <label htmlFor="low-sodium">Low-sodium</label>
