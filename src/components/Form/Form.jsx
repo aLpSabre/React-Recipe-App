@@ -15,7 +15,6 @@ import {
 const Form = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
- 
   const [input, setInput] = useState({
     q: "",
     diet: [],
@@ -27,7 +26,6 @@ const Form = () => {
     ingr: "",
     time: "",
   });
-
   const [check, setCheck] = useState({
     breakfast: false,
     dinner: false,
@@ -50,8 +48,6 @@ const Form = () => {
     "low-fat": false,
     "low-sodium": false,
   });
-
-
   const [value, setValue] = useState({
     minCalories: "",
     maxCalories: "",
@@ -84,38 +80,17 @@ const Form = () => {
           } else {
             url = url + "&" + `${param}=` + `${secondPart + "-" + firstPart}`;
           }
-          console.log(firstPart, "fir");
-          console.log(secondPart, "seonc");
         } else {
           url = url + "&" + `${param}=` + `${input[param]}`;
         }
-
-        console.log("if");
-        console.log(param, input[param]);
       } else if (input[param].length > 0 && param !== "q") {
-        console.log("else");
-        console.log(param, input[param]);
-        console.log(input[param].join(" "));
         url = url + "&" + `${param}=` + `${input[param].join(" ")}`;
       }
     }
-    console.log(url);
+
     const response = await axios(url);
-    console.log(response);
+
     setData(response.data.hits);
-
-    /*     console.log(JSON.parse(localStorage.getItem("DATA"))); */
-    /*   localStorage.setItem("DATA", JSON.stringify(response.data.hits));
-    localStorage.setItem("INPUT", JSON.stringify(input));
-    localStorage.setItem("CHECK", JSON.stringify(check));
-    localStorage.setItem("RANGE", JSON.stringify(value)); */
-
-    console.log(Array.isArray(response.data.hits));
-    /*     (response.data.hits).map(element => {
-          console.log(element.recipe.dishType, "dish")
-          console.log(element.recipe.cuisineType, "cuiseine")
-          console.log(element.recipe.mealType, "meal")
-        }); */
   };
 
   useEffect(() => {
@@ -123,7 +98,7 @@ const Form = () => {
     setData(localData);
 
     let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
-    console.log(localInput);
+
     localInput.length !== 0 && setInput(localInput);
 
     let localCheck = JSON.parse(localStorage.getItem("CHECK")) || [];
@@ -131,49 +106,31 @@ const Form = () => {
 
     let localRange = JSON.parse(localStorage.getItem("RANGE")) || [];
     localRange.length !== 0 && setValue(localRange);
-    /*    
-    let localRange=JSON.parse(localStorage.getItem("RANGE")) || [];
-    setValue(localRange);
-    console.log("use effect"); */
-    /*   get(input);    */
-    /*     console.log(input.calories, "use effect")
-        console.log(input.time,"time effect") */
-    /*    console.log(input, "input") */
-    /*     console.log(input.ingr);
-    console.log(input); */
-    /*     console.log(check["low-sodium"]); */
   }, []);
 
   useEffect(() => {
-    console.log(check);
-    console.log(input);
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
     localStorage.setItem("RANGE", JSON.stringify(value));
   }, [data, input, check, value]);
 
-
   const handleCheck = (e) => {
     let array = input[e.target.name];
-    console.log(array, "array");
-    console.log(e.target.id, "target id");
 
     if (e.target.checked) {
       array.push(e.target.value);
       return setInput({ ...input, [e.target.name]: array });
     }
-    console.log("else");
+
     array = array.filter((element) => element !== e.target.value);
-    console.log(array, "array else");
+
     return setInput({ ...input, [e.target.name]: array });
   };
 
   const handleRadio = (e) => {
     let array = input[e.target.name];
-    console.log(array, "array");
-    console.log(e.target.id, "target id");
-    console.log(e.target.checked);
+
     const health = [
       "alcohol-free",
       "vegan",
@@ -191,44 +148,34 @@ const Form = () => {
     if (e.target.checked) {
       array = [];
       array.push(e.target.value);
-      console.log(array, "array son");
-      console.log(typeof e.target.value);
-    /*   console.log(e.target.name,"name") */
-      console.log(health.indexOf(e.target.value) !== -1);
+
       const obje = {};
+
       if (health.indexOf(e.target.value) !== -1) {
-       
         health
           .filter((element) => element !== e.target.value)
-          .map((element) =>obje[element]=false);
-          setCheck({...check,...obje,[e.target.value]:e.target.checked})
-          console.log("hi")
-     
-      }else{
-       
+          .map((element) => (obje[element] = false));
+        setCheck({ ...check, ...obje, [e.target.value]: e.target.checked });
+      } else {
         diet
           .filter((element) => element !== e.target.value)
-          .map((element) =>obje[element]=false);
-          setCheck({...check,...obje,[e.target.value]:e.target.checked})
-          console.log("hi")
+          .map((element) => (obje[element] = false));
+        setCheck({ ...check, ...obje, [e.target.value]: e.target.checked });
       }
-      console.log(e.target.name);
-   
-    }else{
-      array=[]
-      setCheck({...check,[e.target.value]:false})
+    } else {
+      array = [];
+      setCheck({ ...check, [e.target.value]: false });
     }
     return setInput({ ...input, [e.target.name]: array });
   };
 
   const handleRange = (e) => {
     if (e.target.className === "min") {
-      console.log(input[e.target.name]);
       if (e.target.value === "") {
         if (input[e.target.name].indexOf("%") !== -1) {
           return setInput({ ...input, [e.target.name]: "" });
         }
-     
+
         return setInput({
           ...input,
           [e.target.name]:
@@ -241,7 +188,6 @@ const Form = () => {
         });
       }
       if (input[e.target.name].indexOf("-") === 1 && e.target.value === "") {
-   
         return setInput({
           ...input,
           [e.target.name]: input[e.target.name].slice(
@@ -253,7 +199,6 @@ const Form = () => {
         input[e.target.name] !== "" &&
         input[e.target.name].indexOf("%") === -1
       ) {
-
         return setInput({
           ...input,
           [e.target.name]:
@@ -268,16 +213,12 @@ const Form = () => {
         e.target.value === "" &&
         input[e.target.name].indexOf("%") !== -1
       ) {
- 
         return setInput({ ...input, [e.target.name]: "" });
       } else {
-
         return setInput({ ...input, [e.target.name]: e.target.value + "%2B" });
       }
     } else if (e.target.className === "max") {
       if (e.target.value === "") {
-
-
         return setInput({
           ...input,
           [e.target.name]:
@@ -289,8 +230,6 @@ const Form = () => {
         input[e.target.name] !== "" &&
         input[e.target.name].indexOf("%") !== -1
       ) {
-
-
         return setInput({
           ...input,
           [e.target.name]:
@@ -302,9 +241,6 @@ const Form = () => {
         input[e.target.name] !== "" &&
         input[e.target.name].indexOf("-") !== -1
       ) {
-        console.log("else max");
-        console.log(input[e.target.name]);
-        console.log(e.target.value);
         if (e.target.value === "") {
           return setInput({
             ...input,
@@ -313,9 +249,7 @@ const Form = () => {
               "%2B",
           });
         }
-        console.log(
-          input[e.target.name].slice(0, input[e.target.name].indexOf("-"))
-        );
+
         return setInput({
           ...input,
           [e.target.name]:
@@ -324,7 +258,6 @@ const Form = () => {
             e.target.value,
         });
       } else {
-        console.log("else");
         return setInput({
           ...input,
           [e.target.name]: "0" + "-" + e.target.value,
@@ -335,7 +268,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
+
     get(input);
   };
   const handleReset = (e) => {
@@ -382,11 +315,6 @@ const Form = () => {
       maxTime: "",
     });
     setData([]);
-    console.log(check);
-    /*    localStorage.setItem("DATA", JSON.stringify([]));
-    localStorage.setItem("INPUT", JSON.stringify(input));
-    localStorage.setItem("CHECK", JSON.stringify(check));
-    localStorage.setItem("RANGE", JSON.stringify(value)); */
   };
   return (
     <>
@@ -591,7 +519,7 @@ const Form = () => {
             <CheckContainer>
               <input
                 type="checkbox"
-                name="health" 
+                name="health"
                 id="alcohol-free"
                 value="alcohol-free"
                 checked={check["alcohol-free"]}
@@ -603,11 +531,11 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health" 
+                name="health"
                 id="vegan"
                 value="vegan"
                 checked={check["vegan"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="vegan">Vegan</label>
             </CheckContainer>
@@ -615,11 +543,11 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health" 
+                name="health"
                 id="vegetarian"
                 value="vegetarian"
                 checked={check["vegetarian"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="vegetarian">Vegetarian</label>
             </CheckContainer>
@@ -627,11 +555,11 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health" 
+                name="health"
                 id="kidney-friendly"
                 value="kidney-friendly"
                 checked={check["kidney-friendly"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="kidney-friendly">Kidney-friendly</label>
             </CheckContainer>
@@ -640,11 +568,11 @@ const Form = () => {
               {" "}
               <input
                 type="checkbox"
-                name="health" 
+                name="health"
                 id="pork-free"
                 value="pork-free"
                 checked={check["pork-free"]}
-                onChange={(e) =>       handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="pork-free">Pork-free</label>
             </CheckContainer>
@@ -660,7 +588,7 @@ const Form = () => {
                 id="balanced"
                 value="balanced"
                 checked={check["balanced"]}
-                onChange={(e) =>       handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="balanced">Balanced</label>
             </CheckContainer>
@@ -671,7 +599,7 @@ const Form = () => {
                 id="high-protein"
                 value="high-protein"
                 checked={check["high-protein"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="high-protein">High-protein</label>
             </CheckContainer>
@@ -683,7 +611,7 @@ const Form = () => {
                 id="low-carb"
                 value="low-carb"
                 checked={check["low-carb"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="low-carb">Low-carb</label>
             </CheckContainer>
@@ -694,7 +622,7 @@ const Form = () => {
                 id="low-fat"
                 value="low-fat"
                 checked={check["low-fat"]}
-                onChange={(e) =>handleRadio(e)}
+                onChange={(e) => handleRadio(e)}
               />
               <label htmlFor="low-fat">Low-fat</label>
             </CheckContainer>
