@@ -314,8 +314,10 @@ const Form = () => {
       minTime: "",
       maxTime: "",
     });
-    setData([]);
+
   };
+
+
   return (
     <>
       <FormContainer
