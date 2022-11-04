@@ -5,6 +5,7 @@ export const Recipes = ({ data }) => {
 /*   console.log(data) */
 
 const navigate= useNavigate();
+
   return (
 
     <>

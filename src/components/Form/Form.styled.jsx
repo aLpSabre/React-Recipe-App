@@ -123,6 +123,10 @@ const RecipeContainer = styled.div`
   min-height: 130vh;
   gap: 2rem;
   cursor: pointer;
+  .no-match{
+    font-size: 2rem;
+    font-weight: bold;
+  }
 `;
 
 const OptionContainer = styled.div`

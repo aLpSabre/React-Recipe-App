@@ -1,6 +1,7 @@
 import axios from "axios";
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import GridLoader from "react-spinners/GridLoader";
 import { Recipes } from "../../components/Recipes/Recipes";
 import {
   FormContainer,
@@ -15,6 +16,7 @@ import {
 const Form = () => {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
     q: "",
     diet: [],
@@ -89,7 +91,8 @@ const Form = () => {
     }
 
     const response = await axios(url);
-
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
     setData(response.data.hits);
   };
 
@@ -314,9 +317,7 @@ const Form = () => {
       minTime: "",
       maxTime: "",
     });
-
   };
-
 
   return (
     <>
@@ -762,9 +763,14 @@ const Form = () => {
           </OptionContainer>
         </SecondContainer>
       </FormContainer>
-
       <RecipeContainer>
-        <Recipes data={data} />
+        {loading ? (
+          <GridLoader color={"#FC6011"} /* css={override} */ size={50} />
+        ) : data.length < 1 ? (
+          <p className="no-match">No Match Found!</p>
+        ) : (
+          <Recipes data={data} />
+        )}
       </RecipeContainer>
     </>
   );
