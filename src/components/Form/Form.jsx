@@ -765,7 +765,7 @@ const Form = () => {
       </FormContainer>
       <RecipeContainer>
         {loading ? (
-          <GridLoader color={"#FC6011"} /* css={override} */ size={50} />
+          <GridLoader color={"#FC6011"} /* css={override} */ size={30} />
         ) : data.length < 1 ? (
           <p className="no-match">No Match Found!</p>
         ) : (

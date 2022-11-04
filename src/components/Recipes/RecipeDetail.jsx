@@ -208,7 +208,7 @@ export const RecipeDetail = () => {
   }, []);
 
   return (<>
-    {loading ?<Container><GridLoader color={"#FC6011"} size={50} /></Container>  : <Container>
+    {loading ?<Container><GridLoader color={"#FC6011"} size={30} /></Container>  : <Container>
     <h1>{recipe?.label}</h1>
     <Header>
       <div>
