@@ -5,7 +5,7 @@ import { useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
+import LazyLoad from "react-lazy-load";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -218,7 +218,10 @@ export const RecipeDetail = () => {
     <Header>
       <div>
         <ImageContainer>
-          <img src={recipe?.image} alt="" />
+        <LazyLoad height={400} width={400} threshold={0.95}>
+        <img src={recipe?.image} alt="food" />
+            </LazyLoad>
+        
         </ImageContainer>
       </div>
       <div>

@@ -100,8 +100,6 @@ const Form = () => {
   useEffect(() => {
     let localData = JSON.parse(localStorage.getItem("DATA")) || [];
     setData(localData);
-    console.log(data.length < 1 && first);
-/*     console.log(first); */
    
     localData.length === 0 && get({ q: "chicken" });
     let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
@@ -116,7 +114,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    console.log(first);
+
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
@@ -522,7 +520,7 @@ const Form = () => {
           </OptionContainer>
           <OptionContainer>
             <div>
-              <label htmlFor="health">Health Preferences:</label>
+              <label htmlFor="health">Health Preferences:<span style={{fontSize:"0.8rem",color:"#FC6011"}}> (Choose only one!)</span></label>
             </div>
             <CheckContainer>
               <input
@@ -587,7 +585,7 @@ const Form = () => {
           </OptionContainer>
           <OptionContainer>
             <div>
-              <label htmlFor="diet">Diet Preferences:</label>
+              <label htmlFor="diet">Diet Preferences:<span style={{fontSize:"0.8rem",color:"#FC6011"}}> (Choose only one!)</span></label>
             </div>
             <CheckContainer>
               <input
