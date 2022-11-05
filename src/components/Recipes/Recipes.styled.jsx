@@ -27,10 +27,11 @@ const ImageContainer = styled.div`
 `;
 const Label = styled.div`
   width: 100%;
-  height: 5vh;
+  height: 6vh;
   color: #11263C;
   font-weight: 500;
   font-size: 1.2rem;
+  
 
 `;
 const Info = styled.div`

@@ -28,7 +28,7 @@ export const Recipes = ({ data }) => {
           }
         >
           <ImageContainer>
-            <LazyLoad  height={300} width={300} threshold={0.95}>
+            <LazyLoad  height={300} width={300} >
               <img src={data.recipe.image} alt="food" />
             </LazyLoad>
           </ImageContainer>
