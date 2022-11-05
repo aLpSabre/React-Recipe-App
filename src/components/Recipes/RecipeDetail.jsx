@@ -11,13 +11,17 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 60%;
-  height: auto;
+  min-height: 80vh ;
   flex-direction: column;
   margin: auto;
   gap: 1rem;
   color: #11263c;
   padding: 2rem 0;
   cursor: pointer;
+
+ span span:nth-child(odd){
+    background-color: #11263c !important;
+  }
 
   h1,
   h2 {
@@ -163,7 +167,6 @@ const Ingr = styled.div`
   div {
     flex-basis: 45%;
     width: 95%;
-    /*   border: solid 1px red; */
   }
   @media (max-width: 600px) {
     flex-direction: column;
@@ -189,6 +192,8 @@ const Button = styled.button`
     color: white;
   }
 `;
+
+
 export const RecipeDetail = () => {
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -198,7 +203,7 @@ export const RecipeDetail = () => {
       `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
     );
     console.log();
-    setTimeout(() => setLoading(false), 1000); 
+    setTimeout(() => setLoading(false), 2000);  
     setRecipe(response.data[0]);
   };
   useEffect(() => {
@@ -208,7 +213,7 @@ export const RecipeDetail = () => {
   }, []);
 
   return (<>
-    {loading ?<Container><GridLoader color={"#FC6011"} size={30} /></Container>  : <Container>
+    {loading ?<Container><GridLoader color={"#FC6011"} size={30}  /></Container>  : <Container>
     <h1>{recipe?.label}</h1>
     <Header>
       <div>

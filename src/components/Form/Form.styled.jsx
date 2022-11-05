@@ -120,12 +120,19 @@ const RecipeContainer = styled.div`
   flex-wrap: wrap;
   align-items: flex-start;
   width: 95%;
-  min-height: 130vh;
+  min-height: 70vh;
   gap: 2rem;
+  padding-bottom:2rem;
   cursor: pointer;
   .no-match{
     font-size: 2rem;
     font-weight: bold;
+  }
+  span span:nth-child(odd){
+    background-color: #11263c !important;
+  }
+  span{
+    align-self: center;
   }
 `;
 

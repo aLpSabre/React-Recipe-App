@@ -15,6 +15,7 @@ import {
 } from "../Form/Form.styled";
 const Form = () => {
   const [show, setShow] = useState(false);
+  const [first, setFirst] = useState(false);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState({
@@ -99,7 +100,10 @@ const Form = () => {
   useEffect(() => {
     let localData = JSON.parse(localStorage.getItem("DATA")) || [];
     setData(localData);
-
+    console.log(data.length < 1 && first);
+/*     console.log(first); */
+   
+    localData.length === 0 && get({ q: "chicken" });
     let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
     localInput.length !== 0 && setInput(localInput);
@@ -112,6 +116,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
+    console.log(first);
     localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
@@ -271,7 +276,7 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    setFirst(true);
     get(input);
   };
   const handleReset = (e) => {
@@ -765,8 +770,8 @@ const Form = () => {
       </FormContainer>
       <RecipeContainer>
         {loading ? (
-          <GridLoader color={"#FC6011"} /* css={override} */ size={30} />
-        ) : data.length < 1 ? (
+          <GridLoader color={"#FC6011"} size={30} />
+        ) : (data.length < 1 && first) ? (
           <p className="no-match">No Match Found!</p>
         ) : (
           <Recipes data={data} />
