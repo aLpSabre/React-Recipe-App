@@ -93,7 +93,7 @@ const Form = () => {
 
     const response = await axios(url);
     setLoading(true);
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => setLoading(false), 1000);
     setData(response.data.hits);
   };
 

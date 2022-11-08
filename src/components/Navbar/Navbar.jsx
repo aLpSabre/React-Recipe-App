@@ -96,7 +96,6 @@ export const Navbar = () => {
               onClick={() => setShow(!show)}
               className="hamburger"
             />
-            {/*  <i class="fa fa-times" aria-hidden="true"></i> */}
           </div>
         </div>
 
@@ -129,6 +128,16 @@ export const Navbar = () => {
               })}
             >
               Meal Planner
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/login"
+              style={({ isActive }) => ({
+                color: isActive && "#fc6011",
+              })}
+            >
+            Login
             </NavLink>
           </li>
         </UL>

@@ -203,7 +203,7 @@ export const RecipeDetail = () => {
       `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
     );
     console.log();
-    setTimeout(() => setLoading(false), 2000);  
+    setTimeout(() => setLoading(false), 1000);  
     setRecipe(response.data[0]);
   };
   useEffect(() => {
@@ -218,7 +218,7 @@ export const RecipeDetail = () => {
     <Header>
       <div>
         <ImageContainer>
-        <LazyLoad height={400} width={400} threshold={0.95}>
+        <LazyLoad height={350} width={350} threshold={0.95}>
         <img src={recipe?.image} alt="food" />
             </LazyLoad>
         

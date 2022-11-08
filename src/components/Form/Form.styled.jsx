@@ -142,6 +142,7 @@ const OptionContainer = styled.div`
   gap: 0.4rem;
   width: 100%;
   font-weight: bold;
+  padding-bottom: 1rem;
 `;
 
 const CheckContainer = styled.div`

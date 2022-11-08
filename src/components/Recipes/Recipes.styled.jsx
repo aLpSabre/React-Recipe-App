@@ -12,6 +12,7 @@ const Container = styled.div`
   background-color: #F0F5F9;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: transform 0.2s ease-in-out;
+
   img {
     width: 100%;
     object-fit: cover;
@@ -58,8 +59,11 @@ color: ${({primary})=>primary ? "#FC6011" : "#11263C"};
 
 `
 const Url = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem 0;
-
+  position: relative;
   a {
     color: #11263C;
     text-decoration: none;

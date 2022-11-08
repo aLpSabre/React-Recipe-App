@@ -10,14 +10,28 @@ import {
   Url,
 } from "./Recipes.styled";
 import LazyLoad from "react-lazy-load";
+import { useState } from "react";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import { useEffect } from "react";
+
 export const Recipes = ({ data }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState({});
+
+  function handleClick(e) {
+    e.stopPropagation();
+  }
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
 
   return (
     <>
       {data.map((data, index) => (
         <Container
           key={index}
+          style={{pointerEvents:loading[index] && "none"}}
           onClick={() =>
             navigate(
               `${data.recipe.uri.slice(
@@ -28,7 +42,7 @@ export const Recipes = ({ data }) => {
           }
         >
           <ImageContainer>
-            <LazyLoad  height={300} width={300} >
+            <LazyLoad height={300} width={300}>
               <img src={data.recipe.image} alt="food" />
             </LazyLoad>
           </ImageContainer>
@@ -49,6 +63,28 @@ export const Recipes = ({ data }) => {
             <a href={data.recipe.url} target="_blank">
               {data.recipe.source}
             </a>
+            <LoadingButton
+              color="secondary"
+              onClick={(e) => {
+                handleClick(e);
+                setLoading({ ...loading, [index]: true });
+                setTimeout(
+                  () => setLoading({ ...loading, [index]: false }),
+                  1000
+                );
+             
+              }}
+              loading={loading[index]}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              sx={{
+                backgroundColor: "#11263C",
+                "&:hover": { backgroundColor: "#FC6011" },
+              }}
+            >
+              Save
+            </LoadingButton>
           </Url>
         </Container>
       ))}
