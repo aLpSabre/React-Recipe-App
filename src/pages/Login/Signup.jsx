@@ -14,7 +14,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signup } from "../../components/auth/firebase";
 const theme = createTheme();
 
 export default function SignUp() {
@@ -25,7 +26,9 @@ export default function SignUp() {
     email: "",
     password: "",
   });
-  const [user, setUser] = useState("");
+
+  /*   const auth = getAuth(app); */
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,15 +36,27 @@ export default function SignUp() {
       email: data.get("email"),
       password: data.get("password"),
     });
+    let displayName = input.firstName + " " + input.lastName;
+    /*     console.log(input); */
+
+    /*     createUserWithEmailAndPassword(auth, input.email, input.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      }); */
+    signup(input.email, input.password, displayName);
     setInput({
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
-    });
-    setUser({
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
     });
   };
 

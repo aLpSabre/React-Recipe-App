@@ -14,11 +14,17 @@ import { Home } from "./pages/Home";
 import { RecipeDetail } from "./components/Recipes/RecipeDetail";
 import SignIn from "./pages/Login/Signin";
 import SignUp from "./pages/Login/Signup";
+import { userObserver } from "./components/auth/firebase";
 
 
 const App = () => {
 
 
+  useEffect(() => {
+    userObserver();
+
+
+  }, [])
 
   return (
 

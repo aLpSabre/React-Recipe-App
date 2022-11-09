@@ -14,37 +14,50 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signIn } from "../../components/auth/firebase";
 const theme = createTheme();
 
 export default function SignIn() {
+  /*   const auth = getAuth(app); */
   const navigate = useNavigate();
   const [input, setInput] = useState({
     email: "",
     password: "",
   });
-  const [user, setUser] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("hi");
+
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
-    setInput({
-      email: "",
-      password: "",
-    });
-    setUser({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    navigate("/survey")
+
+    signIn(input.email, input.password);
+    setInput({ email: "", password: "" });
+    /* signInWithEmailAndPassword(auth, input.email,input.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user)
+        setInput({
+          email: "",
+          password: "",
+        });
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage)
+      }); */
+    /*    navigate("/survey"); */
   };
-  useEffect(() => {
+  /*   useEffect(() => {
     console.log(user);
-  }, [user]);
+  }, [user]); */
 
   return (
     <ThemeProvider theme={theme}>
