@@ -15,7 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { signup } from "../../components/auth/firebase";
+import GoogleIcon from "@mui/icons-material/Google";
+
+import { googleAuth, signup } from "../../auth/firebase";
 const theme = createTheme();
 
 export default function SignUp() {
@@ -51,7 +53,7 @@ export default function SignUp() {
         const errorMessage = error.message;
         // ..
       }); */
-    signup(input.email, input.password, displayName);
+    signup(input.email, input.password, displayName,navigate);
     setInput({
       firstName: "",
       lastName: "",
@@ -143,16 +145,26 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 2, mb: 2 }}
+              startIcon={<GoogleIcon />}
+              onClick={() => googleAuth(navigate)}
+            >
+              Sign Up with Google
+            </Button>
+            <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{  mb: 2 }}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link variant="body2" onClick={() => navigate("/login")}>
+                <Link href="" variant="body2" onClick={() => navigate("/login")}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

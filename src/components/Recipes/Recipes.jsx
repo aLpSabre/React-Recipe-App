@@ -14,11 +14,12 @@ import { useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect } from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const Recipes = ({ data }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState({});
-
+  const { currentUser } = useAuthContext();
   function handleClick(e) {
     e.stopPropagation();
   }
@@ -72,6 +73,7 @@ export const Recipes = ({ data }) => {
                   () => setLoading({ ...loading, [index]: false }),
                   1000
                 );
+               currentUser || navigate("/login"); 
              
               }}
               loading={loading[index]}

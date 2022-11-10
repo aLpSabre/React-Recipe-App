@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import hamburger from "../../img/icon-hamburger.svg";
 import close from "../../img/icon-close.svg";
+import { useAuthContext } from "../../context/AuthContext";
+import { logOut } from "../../auth/firebase";
+import CustomizedMenus from "../Menu/Menu";
 const Header = styled.header`
   width: 100%;
   background-color: #11263c;
@@ -55,7 +58,7 @@ const Nav = styled.nav`
   align-items: center;
   width: 70%;
   overflow: hidden;
-  
+
   @media (max-width: 1200px) {
     width: 90%;
     h1 {
@@ -67,7 +70,7 @@ const Nav = styled.nav`
     flex-direction: column;
     /*   height: 25vh; */
     transition: height 0.5s ease-in-out;
-    height: ${({ primary }) => (primary === "show" ? "20vh" : "4vh")};
+    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
     .md-toggle {
       width: 100%;
       display: flex;
@@ -75,13 +78,15 @@ const Nav = styled.nav`
       align-items: center;
     }
   }
-  @media (max-height:800px){
-    height: ${({ primary }) => (primary === "show" ? "25vh" : "5vh")};
+  @media (max-height: 800px) {
+    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
   }
 `;
 
 export const Navbar = () => {
   const [show, setShow] = useState(false);
+  const { currentUser } = useAuthContext();
+/*   console.log(currentUser); */
   return (
     <Header>
       <Nav primary={show ? "show" : "notshow"}>
@@ -131,14 +136,21 @@ export const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/login"
-              style={({ isActive }) => ({
-                color: isActive && "#fc6011",
-              })}
-            >
-            Login
-            </NavLink>
+            
+            {currentUser ? (
+              
+              <CustomizedMenus />
+            ) : (
+              <NavLink
+                to="/login"
+                style={({ isActive }) => ({
+                  color: isActive && "#fc6011",
+                })}
+               
+              >
+                Login
+              </NavLink>
+            )}
           </li>
         </UL>
       </Nav>

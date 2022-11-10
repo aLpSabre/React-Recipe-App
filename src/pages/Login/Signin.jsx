@@ -15,7 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { signIn } from "../../components/auth/firebase";
+import { googleAuth, signIn } from "../../auth/firebase";
+import GoogleIcon from "@mui/icons-material/Google";
+
 const theme = createTheme();
 
 export default function SignIn() {
@@ -35,7 +37,7 @@ export default function SignIn() {
       password: data.get("password"),
     });
 
-    signIn(input.email, input.password);
+    signIn(input.email, input.password,navigate);
     setInput({ email: "", password: "" });
     /* signInWithEmailAndPassword(auth, input.email,input.password)
       .then((userCredential) => {
@@ -107,27 +109,29 @@ export default function SignIn() {
                 setInput({ ...input, [e.target.id]: e.target.value })
               }
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+       
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{mt: 2  , mb: 2 }}
+              startIcon={<GoogleIcon />}
+              onClick={() => googleAuth(navigate)}
             >
+              Sign In with Google
+            </Button>
+            <Button type="submit" fullWidth variant="contained" sx={{ mb: 2}}>
               Sign In
             </Button>
 
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="" variant="body2"  onClick={() => navigate("forgotPassword")}>
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link variant="body2" onClick={() => navigate("signup")}>
+                <Link href="" variant="body2" onClick={() => navigate("signup")}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
