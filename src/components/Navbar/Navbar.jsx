@@ -6,6 +6,7 @@ import close from "../../img/icon-close.svg";
 import { useAuthContext } from "../../context/AuthContext";
 import { logOut } from "../../auth/firebase";
 import CustomizedMenus from "../Menu/Menu";
+import { readData, setData } from "../../firestore/firestore";
 const Header = styled.header`
   width: 100%;
   background-color: #11263c;
@@ -87,6 +88,9 @@ export const Navbar = () => {
   const [show, setShow] = useState(false);
   const { currentUser } = useAuthContext();
 /*   console.log(currentUser); */
+/*   console.log(currentUser); */
+/* currentUser && setData(currentUser.uid,"input")
+currentUser && readData(currentUser.uid) */
   return (
     <Header>
       <Nav primary={show ? "show" : "notshow"}>

@@ -13,27 +13,29 @@ import { Home } from "./pages/Home";
 import { RecipeDetail } from "./components/Recipes/RecipeDetail";
 import SignIn from "./pages/Login/Signin";
 import SignUp from "./pages/Login/Signup";
-import { AuthContextProvider } from "./context/AuthContext";
+import { AuthContextProvider, useAuthContext } from "./context/AuthContext";
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import { MyAccount } from "./pages/MyAccount/MyAccount";
 import { MyRecipes } from "./pages/MyRecipes/MyRecipes";
 import { PersonalInfo } from "./components/PersonalInfo/PersonalInfo";
 import { ChangePassword } from "./components/ChangePassword/ChangePassword";
 import { SavedRecipes } from "./components/SavedRecipes/SavedRecipes";
-import { addData, read, readData } from "./firestore/firestore";
+import { addData, read, readData, setData } from "./firestore/firestore";
 
 
 const App = () => {
-
+const currentUser=useAuthContext();
+console.log(currentUser);
 useEffect(()=>{
-  addData();
-  readData();
-})
+/*   addData();
+  readData(); */
+/*   setData(currentUser.uid,"input"); */
+},[])
 
 
   return (
 
-    <>
+
       <AuthContextProvider>
         <GlobalStyle />
         <Navbar />
@@ -53,7 +55,7 @@ useEffect(()=>{
         </Routes>
       </AuthContextProvider>
 
-    </>
+ 
   );
 }
 

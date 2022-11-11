@@ -60,12 +60,12 @@ export const userObserver = (setUser) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
 
-      const uid = user.uid;
-      console.log(user)
-      const { email, displayName, photoURL } = user;
-      setUser({ email, displayName, photoURL })
-      console.log(uid)
-      console.log(user);
+ /*      const uid = user.uid; */
+ /*      console.log(user) */
+      const { email, displayName, photoURL,uid } = user;
+      setUser({ email, displayName, photoURL,uid })
+    /*   console.log(uid)
+      console.log(user); */
       // ...
     } else {
       setUser("")

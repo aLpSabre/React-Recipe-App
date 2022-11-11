@@ -23,9 +23,7 @@ export const Recipes = ({ data }) => {
   function handleClick(e) {
     e.stopPropagation();
   }
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
+
 
   return (
     <>
