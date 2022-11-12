@@ -71,7 +71,7 @@ const Nav = styled.nav`
     flex-direction: column;
     /*   height: 25vh; */
     transition: height 0.5s ease-in-out;
-    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
+    height: ${({ primary }) => (primary === "show" ? "28vh" : "4vh")};
     .md-toggle {
       width: 100%;
       display: flex;
@@ -80,16 +80,16 @@ const Nav = styled.nav`
     }
   }
   @media (max-height: 800px) {
-    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
+    height: ${({ primary }) => (primary === "show" ? "40vh" : "4vh")};
   }
 `;
 
 export const Navbar = () => {
   const [show, setShow] = useState(false);
   const { currentUser } = useAuthContext();
-/*   console.log(currentUser); */
-/*   console.log(currentUser); */
-/* currentUser && setData(currentUser.uid,"input")
+  /*   console.log(currentUser); */
+  /*   console.log(currentUser); */
+  /* currentUser && setData(currentUser.uid,"input")
 currentUser && readData(currentUser.uid) */
   return (
     <Header>
@@ -140,9 +140,7 @@ currentUser && readData(currentUser.uid) */
             </NavLink>
           </li>
           <li>
-            
             {currentUser ? (
-              
               <CustomizedMenus />
             ) : (
               <NavLink
@@ -150,7 +148,6 @@ currentUser && readData(currentUser.uid) */
                 style={({ isActive }) => ({
                   color: isActive && "#fc6011",
                 })}
-               
               >
                 Login
               </NavLink>

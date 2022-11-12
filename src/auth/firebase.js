@@ -44,7 +44,7 @@ export const signIn = async (email, password, navigate) => {
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-    console.log(userCredentials.user)
+ /*    console.log(userCredentials.user) */
     navigate("/myaccount/personalInfo");
 
   }
@@ -61,7 +61,7 @@ export const userObserver = (setUser,setLoading) => {
     if (user) {
 
  /*      const uid = user.uid; */
- /*      console.log(user) */
+   /*    console.log(user) */
       const { email, displayName, photoURL,uid } = user;
       setUser({ email, displayName, photoURL,uid })
       setTimeout(()=> setLoading(false),1000)

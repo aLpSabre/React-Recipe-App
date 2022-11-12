@@ -5,7 +5,12 @@ import { useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
 import { Recipes } from "../../components/Recipes/Recipes";
 import { useAuthContext } from "../../context/AuthContext";
-import { db, readData, setDataFire } from "../../firestore/firestore";
+import {
+  db,
+  getDataFire,
+  readData,
+  setDataFire,
+} from "../../firestore/firestore";
 import {
   FormContainer,
   OptionContainer,
@@ -63,9 +68,9 @@ const Form = () => {
     maxTime: "",
   });
   const { currentUser } = useAuthContext();
-  console.log(currentUser);
+  /*   console.log(currentUser); */
   const [myuser, setMyuser] = useState("");
-  
+
   const get = async (input) => {
     let url =
       "https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21";
@@ -105,45 +110,54 @@ const Form = () => {
 
   useEffect(() => {
     console.log("useEffect form");
-    console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect");
-    readData(currentUser.uid,setData)
-    /*   let localData = JSON.parse(localStorage.getItem("DATA")) || [];
-    setData(localData); */
+    /*   console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect"); */
+    if (currentUser) {
+      /*   readData(currentUser.uid, setData); */
+      getDataFire(currentUser.uid, "data", setData,get);
+      getDataFire(currentUser.uid, "input", setInput,get);
+      getDataFire(currentUser.uid, "check", setCheck,get);
+      getDataFire(currentUser.uid, "value", setValue,get);
+    } else {
+      let localData = JSON.parse(localStorage.getItem("DATA")) || [];
+      setData(localData);
+      localData.length === 0 && get({ q: "chicken" });
+      let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
-    /* localData.length === 0 && get({ q: "chicken" }); */
+      localInput.length !== 0 && setInput(localInput);
 
-    /*     currentUser && readData(currentUser.uid);
-    console.log(readData(currentUser.uid)); */
+      let localCheck = JSON.parse(localStorage.getItem("CHECK")) || [];
+      localCheck.length !== 0 && setCheck(localCheck);
 
-  /*   readData("bAIbBCQpeRWZWrhtbSoct39HH802", setData); */
-    
-
-    
-    let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
-
-    localInput.length !== 0 && setInput(localInput);
-
-    let localCheck = JSON.parse(localStorage.getItem("CHECK")) || [];
-    localCheck.length !== 0 && setCheck(localCheck);
-
-    let localRange = JSON.parse(localStorage.getItem("RANGE")) || [];
-    localRange.length !== 0 && setValue(localRange);
+      let localRange = JSON.parse(localStorage.getItem("RANGE")) || [];
+      localRange.length !== 0 && setValue(localRange);
+    }
   }, []);
 
   useEffect(() => {
-    /*     localStorage.setItem("DATA", JSON.stringify(data)); */
-    /*    data && setDataFire(currentUser.uid, "data", data); */
-
-    data.length && setDataFire(currentUser.uid, "data", { data: data });
-
-    /*   readData(currentUser.uid); */
-    /*    setData(readData(currentUser.uid)); */
-    /*    console.log(readData(currentUser.uid)); */
-    /* setData(readData(currentUser.uid)) */
-    localStorage.setItem("INPUT", JSON.stringify(input));
-    localStorage.setItem("CHECK", JSON.stringify(check));
-    localStorage.setItem("RANGE", JSON.stringify(value));
+    console.log("use effect 2");
+    console.log(input.q);
+    if (currentUser) {
+      if (data.length) {
+        setDataFire(currentUser.uid, "data", { data: data });
+        setDataFire(currentUser.uid, "input", { input: input });
+        setDataFire(currentUser.uid, "check", { check: check });
+        setDataFire(currentUser.uid, "value", { value: value });
+      }
+      /*   data.length && setDataFire(currentUser.uid, "data", { data: data }); */
+      /*       setDataFire(currentUser.uid, "input", { input: input });
+      setDataFire(currentUser.uid, "check", { check: check });
+      setDataFire(currentUser.uid, "value", { value: value }); */
+    } else {
+      localStorage.setItem("DATA", JSON.stringify(data));
+      localStorage.setItem("INPUT", JSON.stringify(input));
+      localStorage.setItem("CHECK", JSON.stringify(check));
+      localStorage.setItem("RANGE", JSON.stringify(value));
+    }
   }, [data, input, check, value]);
+
+  /*     useEffect(() => {
+   console.log(currentUser,"cuurent")
+  }, [currentUser]) */
 
   const handleCheck = (e) => {
     let array = input[e.target.name];
@@ -711,7 +725,7 @@ const Form = () => {
                   id="maxCalories"
                   className="max"
                   value={value["maxCalories"]}
-                  min={0}
+                  min={1}
                   placeholder="0"
                   onChange={(e) => {
                     handleRange(e);
@@ -751,7 +765,7 @@ const Form = () => {
                   id="maxIngr"
                   className="max"
                   value={value["maxIngr"]}
-                  min={0}
+                  min={1}
                   placeholder="0"
                   onChange={(e) => {
                     handleRange(e);
@@ -790,7 +804,7 @@ const Form = () => {
                   id="maxTime"
                   className="max"
                   value={value["maxTime"]}
-                  min={0}
+                  min={1}
                   placeholder="0"
                   onChange={(e) => {
                     handleRange(e);
@@ -804,7 +818,7 @@ const Form = () => {
       </FormContainer>
       <RecipeContainer>
         {loading ? (
-          <GridLoader color={"#FC6011"} size={30} />
+          <GridLoader color={"#FC6011"} size={30} speedMultiplier={1}/>
         ) : data.length < 1 && first ? (
           <p className="no-match">No Match Found!</p>
         ) : (
@@ -815,4 +829,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export { Form as default };

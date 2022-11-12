@@ -29,6 +29,7 @@ const FormContainer = styled.form`
     outline: none;
     border: solid 1px #11263c;
     margin: 5px;
+    font-weight: bold;
   }
 
   input[type="text"] {
@@ -38,6 +39,8 @@ const FormContainer = styled.form`
     outline: none;
     border-radius: 10px;
     margin-bottom: 0.7rem;
+    font-weight: bold;
+ 
   }
   input[type="checkbox"],
   input[type="radio"] {

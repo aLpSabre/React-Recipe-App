@@ -13,6 +13,10 @@ body{
   height: 100vh;
   font-family: 'Lato', sans-serif;
 
+  span span:nth-child(odd){
+    background-color: #11263c !important;
+  }
+
 
 }
 

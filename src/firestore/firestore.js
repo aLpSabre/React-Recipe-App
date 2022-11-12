@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { collection, addDoc, getFirestore, getDocs, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc, getFirestore, getDocs, setDoc, doc, getDocFromCache, getDoc } from "firebase/firestore";
 
 /* const firebase = require("firebase");
 // Required for side-effects
@@ -39,7 +39,7 @@ export const addData = async () => {
   }
 }
 
-export const readData = async (userId,setData) => {
+export const readData = async (userId, setData) => {
   console.log("readDATA");
   const querySnapshot = await getDocs(collection(db, userId));
   /*   querySnapshot.forEach((doc) => {
@@ -56,7 +56,26 @@ export const readData = async (userId,setData) => {
 }
 
 export const setDataFire = async (userId, type, data) => {
-  console.log("setData");
+ /*  console.log("setData"); */
 
   await setDoc(doc(db, userId, type), data);
+}
+
+//TODO 
+export const getDataFire = async (userId, type, set,get) => {
+  /*  const docRef = doc(db, "cities", "SF"); */
+  const docRef = doc(db, userId, type);
+  const docSnap = await getDoc(docRef);
+let count=0;
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data()[type]);
+    set(docSnap.data()[type])
+  } else {
+    // doc.data() will be undefined in this case
+
+    console.log("No such document!");
+    count<1 && get({ q: "chicken" })
+    count++;
+
+  }
 }
