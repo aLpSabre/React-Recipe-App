@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 
 
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 
 
@@ -39,8 +39,8 @@ export const addData = async () => {
   }
 }
 
-export const readData = async (userId) => {
-console.log("readDATA");
+export const readData = async (userId,setData) => {
+  console.log("readDATA");
   const querySnapshot = await getDocs(collection(db, userId));
   /*   querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data()}`);
@@ -49,23 +49,14 @@ console.log("readDATA");
 
   const array = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
   console.log(array)
+  console.log(array[0].data);
 
+  setData(array[0].data);
   /*   console.log(querySnapshot); */
 }
 
-export const setDataFire = async (userId, type) => {
+export const setDataFire = async (userId, type, data) => {
   console.log("setData");
 
-  await setDoc(doc(db, userId, type), {
-    q: "",
-    diet: [],
-    health: [],
-    cuisineType: [],
-    mealType: [],
-    dishType: [],
-    calories: "",
-    ingr: "",
-    time: "",
-
-  });
+  await setDoc(doc(db, userId, type), data);
 }

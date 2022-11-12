@@ -56,7 +56,7 @@ export const signIn = async (email, password, navigate) => {
 
 }
 
-export const userObserver = (setUser) => {
+export const userObserver = (setUser,setLoading) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
 
@@ -64,11 +64,15 @@ export const userObserver = (setUser) => {
  /*      console.log(user) */
       const { email, displayName, photoURL,uid } = user;
       setUser({ email, displayName, photoURL,uid })
+      setTimeout(()=> setLoading(false),1000)
+   
     /*   console.log(uid)
       console.log(user); */
       // ...
     } else {
       setUser("")
+      setTimeout(()=> setLoading(false),3000)
+
     }
   });
 }

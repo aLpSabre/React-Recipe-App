@@ -11,12 +11,14 @@ export const useAuthContext = () => {
 };
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setUser] = useState("");
+  const [loading, setLoading] = useState(true);
+
 /* console.log(currentUser);
  */  useEffect(() => {
-    userObserver(setUser);
+    userObserver(setUser,setLoading);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ currentUser,loading }}>{children}</AuthContext.Provider>
   );
 };

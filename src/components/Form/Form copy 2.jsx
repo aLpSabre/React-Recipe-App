@@ -1,11 +1,8 @@
 import axios from "axios";
-import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from "react";
 import { useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
 import { Recipes } from "../../components/Recipes/Recipes";
-import { useAuthContext } from "../../context/AuthContext";
-import { db, readData, setDataFire } from "../../firestore/firestore";
 import {
   FormContainer,
   OptionContainer,
@@ -62,10 +59,8 @@ const Form = () => {
     minTime: "",
     maxTime: "",
   });
-  const { currentUser } = useAuthContext();
-  console.log(currentUser);
-  const [myuser, setMyuser] = useState("");
-  
+
+
   const get = async (input) => {
     let url =
       "https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21";
@@ -104,21 +99,10 @@ const Form = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect form");
-    console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect");
-    readData(currentUser.uid,setData)
-    /*   let localData = JSON.parse(localStorage.getItem("DATA")) || [];
-    setData(localData); */
+    let localData = JSON.parse(localStorage.getItem("DATA")) || [];
+    setData(localData);
 
-    /* localData.length === 0 && get({ q: "chicken" }); */
-
-    /*     currentUser && readData(currentUser.uid);
-    console.log(readData(currentUser.uid)); */
-
-  /*   readData("bAIbBCQpeRWZWrhtbSoct39HH802", setData); */
-    
-
-    
+    localData.length === 0 && get({ q: "chicken" });
     let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
     localInput.length !== 0 && setInput(localInput);
@@ -131,15 +115,7 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    /*     localStorage.setItem("DATA", JSON.stringify(data)); */
-    /*    data && setDataFire(currentUser.uid, "data", data); */
-
-    data.length && setDataFire(currentUser.uid, "data", { data: data });
-
-    /*   readData(currentUser.uid); */
-    /*    setData(readData(currentUser.uid)); */
-    /*    console.log(readData(currentUser.uid)); */
-    /* setData(readData(currentUser.uid)) */
+    localStorage.setItem("DATA", JSON.stringify(data));
     localStorage.setItem("INPUT", JSON.stringify(input));
     localStorage.setItem("CHECK", JSON.stringify(check));
     localStorage.setItem("RANGE", JSON.stringify(value));
