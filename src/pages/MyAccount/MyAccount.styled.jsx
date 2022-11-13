@@ -5,7 +5,7 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
-  width: 80%;
+  width: 90%;
 
   margin: auto;
   height: 80vh;
@@ -14,6 +14,18 @@ export const Container = styled.div`
   left: 50%;
   transform: translate(-50%, -55%);
   border-radius: 10px;
+
+`;
+
+export const SectionContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: left;
+  flex-direction: column;
+  border-right: solid 1px rgb(55, 65, 81);
+  width: 25%;
+  height: 100%;
+  padding: 1rem;
   a {
     text-decoration: none;
     color: #11263c;
@@ -27,17 +39,6 @@ export const Container = styled.div`
   }
 `;
 
-export const SectionContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: left;
-  flex-direction: column;
-  border-right: solid 1px rgb(55, 65, 81);
-  width: 25%;
-  height: 100%;
-  padding: 1rem;
-`;
-
 export const ProfileInfo = styled.div`
   display: flex;
   justify-content: space-between;
@@ -49,7 +50,7 @@ export const ProfileInfo = styled.div`
   gap: 0.5rem;
 `;
 export const OutletContainer=styled.div`
-width: 70%;
-height: 100%;
+width: 75%;
+border: solid 1px red;
 
 `

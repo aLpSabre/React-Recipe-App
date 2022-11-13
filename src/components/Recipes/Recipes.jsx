@@ -16,21 +16,44 @@ import SaveIcon from "@mui/icons-material/Save";
 import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import GridLoader from "react-spinners/GridLoader";
+import { getDataFire, setDataFire } from "../../firestore/firestore";
 export const Recipes = ({ data }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState({});
   const [saved, setSaved] = useState({});
   const [dataLoading, setDataLoading] = useState(true);
-  const { currentUser } = useAuthContext();
+  const { currentUser, savedRecipes, setSavedRecipes } = useAuthContext();
   function handleClick(e) {
     e.stopPropagation();
   }
+
+  const handleSaved = (index, data) => {
+    console.log(index);
+    console.log(saved[index]);
+    console.log(typeof saved[index] === "undefined", "undefined");
+    if (typeof saved[index] === "undefined") {
+      setSavedRecipes([...savedRecipes, data]);
+    } else if (!saved[index]) {
+      setSavedRecipes([...savedRecipes, data]);
+    } else {
+      setSavedRecipes(savedRecipes.filter((element) => element !== data));
+    }
+  };
   useEffect(() => {
- 
-    console.log(data);
     data.length > 0 && setTimeout(() => setDataLoading(false), 1000);
   }, [data]);
 
+  useEffect(() => {
+    console.log("current get")
+    currentUser && getDataFire(currentUser.uid, "saved", setSaved);
+  }, [currentUser]);
+
+  useEffect(() => {
+Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved: saved });
+  }, [ saved]);
+  useEffect(() => {
+    console.log(savedRecipes);
+  }, [savedRecipes]);
   return (
     <>
       {dataLoading ? (
@@ -80,19 +103,31 @@ export const Recipes = ({ data }) => {
                     () => setLoading({ ...loading, [index]: false }),
                     1000
                   );
-                  setSaved({ ...saved, [index]: !saved[index] });
+                  setSaved({ ...saved, [data.recipe.uri.slice(
+                    data.recipe.uri.indexOf("#") + 1,
+                    data.recipe.uri.length)]: !saved[data.recipe.uri.slice(
+                      data.recipe.uri.indexOf("#") + 1,
+                      data.recipe.uri.length)] });
                   currentUser || navigate("/login");
+
+                  handleSaved(data.recipe.uri.slice(
+                    data.recipe.uri.indexOf("#") + 1,
+                    data.recipe.uri.length), data);
                 }}
                 loading={loading[index]}
                 loadingPosition="start"
                 startIcon={<SaveIcon />}
                 variant="contained"
                 sx={{
-                  backgroundColor: `${saved[index] ? "#FC6011" : "#11263C"}`,
+                  backgroundColor: `${saved[data.recipe.uri.slice(
+                    data.recipe.uri.indexOf("#") + 1,
+                    data.recipe.uri.length)] ? "#FC6011" : "#11263C"}`,
                   "&:hover": { backgroundColor: "#FC6011" },
                 }}
               >
-                {saved[index] ? "Unsave" : "Save"}
+                {saved[data.recipe.uri.slice(
+                  data.recipe.uri.indexOf("#") + 1,
+                  data.recipe.uri.length)] ? "Unsave" : "Save"}
               </LoadingButton>
             </Url>
           </Container>

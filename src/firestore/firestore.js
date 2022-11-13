@@ -56,7 +56,7 @@ export const readData = async (userId, setData) => {
 }
 
 export const setDataFire = async (userId, type, data) => {
- /*  console.log("setData"); */
+/*   console.log("setData"); */
 
   await setDoc(doc(db, userId, type), data);
 }
@@ -70,6 +70,7 @@ let count=0;
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data()[type]);
     set(docSnap.data()[type])
+  
   } else {
     // doc.data() will be undefined in this case
 

@@ -1,20 +1,36 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
-import { Container, OutletContainer, ProfileInfo, SectionContainer } from "./MyAccount.styled";
+import {
+  Container,
+  OutletContainer,
+  ProfileInfo,
+  SectionContainer,
+} from "./MyAccount.styled";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { NavLink } from "react-router-dom";
-
+import ClipLoader from "react-spinners/ClipLoader";
+import { useEffect, useState } from "react";
 export const MyAccount = () => {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
+  const [dataLoading, setDataLoading] = useState(true);
+  useEffect(() => {
+    currentUser.displayName  && setTimeout(() => setDataLoading(false), 1000);
+  }, [currentUser]);
   return (
     <Container>
       <SectionContainer>
         <ProfileInfo>
           <AccountBoxIcon sx={{ fontSize: "3rem", color: "#11263c" }} />
-          <p style={{ textAlign: "left", color: "#fc6011", fontWeight: "600" }}>
-            Hello {currentUser.displayName}!
-          </p>
+          {dataLoading ? (
+            <ClipLoader color={"#FC6011"} size={30} speedMultiplier={1} />
+          ) : (
+            <p
+              style={{ textAlign: "left", color: "#fc6011", fontWeight: "600" }}
+            >
+              Hello {currentUser.displayName}!
+            </p>
+          )}
         </ProfileInfo>
         <NavLink
           to="personalInfo"

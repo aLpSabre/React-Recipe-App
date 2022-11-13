@@ -64,7 +64,9 @@ const App = () => {
             <Route path="personalInfo" element={<PersonalInfo />} />
             <Route path="changePassword" element={<ChangePassword />} />
             <Route path="savedRecipes" element={<SavedRecipes />} />
+            <Route path="savedRecipes/:id" element={<RecipeDetail />} />
           </Route>
+        
           <Route path="myrecipes" element={<MyRecipes />} />
           <Route path="*" element={<NotFound/>}/>
         </Routes></>

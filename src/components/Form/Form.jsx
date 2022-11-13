@@ -105,11 +105,12 @@ const Form = () => {
     const response = await axios(url);
     setLoading(true);
     setTimeout(() => setLoading(false), 1000);
+    console.log(response.data.hits)
     setData(response.data.hits);
   };
 
   useEffect(() => {
-    console.log("useEffect form");
+/*     console.log("useEffect form"); */
     /*   console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect"); */
     if (currentUser) {
       /*   readData(currentUser.uid, setData); */
@@ -117,6 +118,7 @@ const Form = () => {
       getDataFire(currentUser.uid, "input", setInput,get);
       getDataFire(currentUser.uid, "check", setCheck,get);
       getDataFire(currentUser.uid, "value", setValue,get);
+    
     } else {
       let localData = JSON.parse(localStorage.getItem("DATA")) || [];
       setData(localData);
@@ -134,8 +136,8 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    console.log("use effect 2");
-    console.log(input.q);
+/*     console.log("use effect 2");
+    console.log(input.q); */
     if (currentUser) {
       if (data.length) {
         setDataFire(currentUser.uid, "data", { data: data });
