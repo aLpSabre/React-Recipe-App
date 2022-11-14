@@ -28,15 +28,18 @@ export const Recipes = ({ data }) => {
   }
 
   const handleSaved = (index, data) => {
-    console.log(index);
-    console.log(saved[index]);
-    console.log(typeof saved[index] === "undefined", "undefined");
+
     if (typeof saved[index] === "undefined") {
+      
       setSavedRecipes([...savedRecipes, data]);
+
     } else if (!saved[index]) {
       setSavedRecipes([...savedRecipes, data]);
+
     } else {
-      setSavedRecipes(savedRecipes.filter((element) => element !== data));
+   
+      setSavedRecipes(savedRecipes.filter((element) => element.recipe.url !== data.recipe.url));
+  
     }
   };
   useEffect(() => {
@@ -51,9 +54,9 @@ export const Recipes = ({ data }) => {
   useEffect(() => {
 Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved: saved });
   }, [ saved]);
-  useEffect(() => {
+/*   useEffect(() => {
     console.log(savedRecipes);
-  }, [savedRecipes]);
+  }, [savedRecipes]); */
   return (
     <>
       {dataLoading ? (
@@ -98,9 +101,13 @@ Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved
                 color="secondary"
                 onClick={(e) => {
                   handleClick(e);
-                  setLoading({ ...loading, [index]: true });
+                  setLoading({ ...loading, [data.recipe.uri.slice(
+                    data.recipe.uri.indexOf("#") + 1,
+                    data.recipe.uri.length)]: true });
                   setTimeout(
-                    () => setLoading({ ...loading, [index]: false }),
+                    () => setLoading({ ...loading, [data.recipe.uri.slice(
+                      data.recipe.uri.indexOf("#") + 1,
+                      data.recipe.uri.length)]: false }),
                     1000
                   );
                   setSaved({ ...saved, [data.recipe.uri.slice(
@@ -114,7 +121,9 @@ Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved
                     data.recipe.uri.indexOf("#") + 1,
                     data.recipe.uri.length), data);
                 }}
-                loading={loading[index]}
+                loading={loading[data.recipe.uri.slice(
+                  data.recipe.uri.indexOf("#") + 1,
+                  data.recipe.uri.length)]}
                 loadingPosition="start"
                 startIcon={<SaveIcon />}
                 variant="contained"

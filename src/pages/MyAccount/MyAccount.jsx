@@ -15,13 +15,14 @@ export const MyAccount = () => {
   const navigate = useNavigate();
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
-    currentUser.displayName  && setTimeout(() => setDataLoading(false), 1000);
+
+    currentUser.displayName && setTimeout(() => setDataLoading(false), 1000);
   }, [currentUser]);
   return (
     <Container>
       <SectionContainer>
         <ProfileInfo>
-          <AccountBoxIcon sx={{ fontSize: "3rem", color: "#11263c" }} />
+          <AccountBoxIcon sx={{ fontSize: "8rem", color: "#11263c" }} />
           {dataLoading ? (
             <ClipLoader color={"#FC6011"} size={30} speedMultiplier={1} />
           ) : (
@@ -61,7 +62,6 @@ export const MyAccount = () => {
         </NavLink>
       </SectionContainer>
       <OutletContainer>
-        {" "}
         <Outlet></Outlet>
       </OutletContainer>
     </Container>

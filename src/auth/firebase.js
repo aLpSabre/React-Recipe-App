@@ -120,3 +120,9 @@ export const forgotPassword = (email) => {
       // ..
     });
 }
+
+export const updateUser= async (displayName)=>{
+  await updateProfile(auth.currentUser, {
+    displayName: displayName,
+  });
+}

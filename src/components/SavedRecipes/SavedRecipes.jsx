@@ -12,8 +12,7 @@ export const SavedRecipes = () => {
 
   return (
     <>
-      <RecipeContainer>
-        {" "}
+      <RecipeContainer style={{width:"100%"}} >
         <Recipes data={savedRecipes}></Recipes>
       </RecipeContainer>
     </>

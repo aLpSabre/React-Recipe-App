@@ -29,49 +29,50 @@ export default function ForgotPassword() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-
-
-    forgotPassword(input)
+    forgotPassword(input);
     setInput("");
-
   };
 
-
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box component="form" onSubmit={handleSubmit}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              type="email"
-              autoComplete="email"
-              autoFocus
-              value={input}
-              onChange={(e) =>
-                setInput( e.target.value )
-              }
-            />
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box component="form" onSubmit={handleSubmit}>
+          <Typography
+            variant="h5"
+            component="h2"
+            align="left"
+            color="#11263c"
+            mb={1}
+          >
+            Forgot Password?
+          </Typography>
 
-            <Button type="submit" fullWidth variant="contained" sx={{ mb: 2 }}>
-              Send E-Mail
-            </Button>
-          </Box>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            type="email"
+            autoComplete="email"
+            autoFocus
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 1 }}>
+            Send E-Mail
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }

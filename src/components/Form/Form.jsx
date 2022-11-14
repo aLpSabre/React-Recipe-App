@@ -69,7 +69,6 @@ const Form = () => {
   });
   const { currentUser } = useAuthContext();
   /*   console.log(currentUser); */
-  const [myuser, setMyuser] = useState("");
 
   const get = async (input) => {
     let url =
@@ -105,20 +104,19 @@ const Form = () => {
     const response = await axios(url);
     setLoading(true);
     setTimeout(() => setLoading(false), 1000);
-    console.log(response.data.hits)
+    console.log(response.data.hits);
     setData(response.data.hits);
   };
 
   useEffect(() => {
-/*     console.log("useEffect form"); */
+    /*     console.log("useEffect form"); */
     /*   console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect"); */
     if (currentUser) {
       /*   readData(currentUser.uid, setData); */
-      getDataFire(currentUser.uid, "data", setData,get);
-      getDataFire(currentUser.uid, "input", setInput,get);
-      getDataFire(currentUser.uid, "check", setCheck,get);
-      getDataFire(currentUser.uid, "value", setValue,get);
-    
+      getDataFire(currentUser.uid, "data", setData, get);
+      getDataFire(currentUser.uid, "input", setInput, get);
+      getDataFire(currentUser.uid, "check", setCheck, get);
+      getDataFire(currentUser.uid, "value", setValue, get);
     } else {
       let localData = JSON.parse(localStorage.getItem("DATA")) || [];
       setData(localData);
@@ -136,30 +134,43 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-/*     console.log("use effect 2");
-    console.log(input.q); */
     if (currentUser) {
       if (data.length) {
         setDataFire(currentUser.uid, "data", { data: data });
-        setDataFire(currentUser.uid, "input", { input: input });
-        setDataFire(currentUser.uid, "check", { check: check });
-        setDataFire(currentUser.uid, "value", { value: value });
       }
-      /*   data.length && setDataFire(currentUser.uid, "data", { data: data }); */
-      /*       setDataFire(currentUser.uid, "input", { input: input });
-      setDataFire(currentUser.uid, "check", { check: check });
-      setDataFire(currentUser.uid, "value", { value: value }); */
     } else {
       localStorage.setItem("DATA", JSON.stringify(data));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (currentUser) {
+      if (data.length) {
+        setDataFire(currentUser.uid, "input", { input: input });
+      }
+    } else {
       localStorage.setItem("INPUT", JSON.stringify(input));
+    }
+  }, [input]);
+
+  useEffect(() => {
+    if (currentUser) {
+      if (data.length) {
+        setDataFire(currentUser.uid, "check", { check: check });
+      }
+    } else {
       localStorage.setItem("CHECK", JSON.stringify(check));
+    }
+  }, [check]);
+  useEffect(() => {
+    if (currentUser) {
+      if (data.length) {
+        setDataFire(currentUser.uid, "value", { value: value });
+      }
+    } else {
       localStorage.setItem("RANGE", JSON.stringify(value));
     }
-  }, [data, input, check, value]);
-
-  /*     useEffect(() => {
-   console.log(currentUser,"cuurent")
-  }, [currentUser]) */
+  }, [value]);
 
   const handleCheck = (e) => {
     let array = input[e.target.name];
@@ -820,7 +831,7 @@ const Form = () => {
       </FormContainer>
       <RecipeContainer>
         {loading ? (
-          <GridLoader color={"#FC6011"} size={30} speedMultiplier={1}/>
+          <GridLoader color={"#FC6011"} size={30} speedMultiplier={1} />
         ) : data.length < 1 && first ? (
           <p className="no-match">No Match Found!</p>
         ) : (

@@ -4,17 +4,18 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
-  width: 90%;
-
-  margin: auto;
-  height: 80vh;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -55%);
+  width: 100%;
+  min-height: 80vh;
   border-radius: 10px;
-
+  margin: auto;
+  margin-top: 2.5rem;
+  gap: 1rem;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+  }
 `;
 
 export const SectionContainer = styled.div`
@@ -22,7 +23,7 @@ export const SectionContainer = styled.div`
   justify-content: flex-start;
   align-items: left;
   flex-direction: column;
-  border-right: solid 1px rgb(55, 65, 81);
+  border-right: solid 1px #fc6011;
   width: 25%;
   height: 100%;
   padding: 1rem;
@@ -37,20 +38,32 @@ export const SectionContainer = styled.div`
       background-color: #11263c;
     }
   }
+  @media (max-width: 1000px) {
+    width: 80%;
+    border: none;
+  }
 `;
 
 export const ProfileInfo = styled.div`
   display: flex;
   justify-content: space-between;
-
   align-items: center;
   width: 100%;
-  height: 20vh;
+  height: 15vh;
   border-bottom: solid 1px rgb(55, 65, 81);
   gap: 0.5rem;
+  @media (max-width: 1000px) {
+    justify-content: left;
+  }
 `;
-export const OutletContainer=styled.div`
-width: 75%;
-border: solid 1px red;
-
-`
+export const OutletContainer = styled.div`
+  width: 100%;
+  min-height: 30vh;
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  @media (max-width: 1000px) {
+    justify-content: center;
+  align-items: flex-start;
+  }
+`;
