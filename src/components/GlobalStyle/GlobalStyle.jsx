@@ -17,7 +17,9 @@ body{
   span span:nth-child(odd){
     background-color: #11263c !important;
   }
-
+a{
+  cursor:pointer; 
+}
 
 }
 

@@ -6,13 +6,13 @@ import { Recipes } from "../Recipes/Recipes";
 export const SavedRecipes = () => {
   const { savedRecipes } = useAuthContext();
   useEffect(() => {
-/*     console.log(savedRecipes);
+    /*     console.log(savedRecipes);
     savedRecipes.map((element) => console.log(element)); */
   }, []);
 
   return (
     <>
-      <RecipeContainer style={{width:"100%"}} >
+      <RecipeContainer style={{ width: "100%" }}>
         <Recipes data={savedRecipes}></Recipes>
       </RecipeContainer>
     </>

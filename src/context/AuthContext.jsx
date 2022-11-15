@@ -15,18 +15,26 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [savedRecipes, setSavedRecipes] = useState([]);
 
-/* console.log(currentUser);
- */  useEffect(() => {
-    userObserver(setUser,setLoading);
+  useEffect(() => {
+    userObserver(setUser, setLoading);
   }, []);
   useEffect(() => {
-   currentUser &&  getDataFire(currentUser.uid, "savedRecipes", setSavedRecipes);
+    console.log(currentUser, "currentuser");
+    currentUser &&
+      getDataFire(currentUser.uid, "savedRecipes", setSavedRecipes);
   }, [currentUser]);
 
   useEffect(() => {
-    setDataFire(currentUser.uid, "savedRecipes", { savedRecipes: savedRecipes });
-   }, [savedRecipes]);
+    currentUser &&
+      setDataFire(currentUser.uid, "savedRecipes", {
+        savedRecipes: savedRecipes,
+      });
+  }, [savedRecipes]);
   return (
-    <AuthContext.Provider value={{ currentUser,loading ,savedRecipes,setSavedRecipes}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{ currentUser, loading, savedRecipes, setSavedRecipes }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };

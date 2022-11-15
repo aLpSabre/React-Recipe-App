@@ -16,7 +16,7 @@ export const MyAccount = () => {
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
 
-    currentUser.displayName && setTimeout(() => setDataLoading(false), 1000);
+    currentUser && setTimeout(() => setDataLoading(false), 1000);
   }, [currentUser]);
   return (
     <Container>

@@ -21,7 +21,7 @@ export const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 //? Sign-Up
-export const signup = async (email, password, displayName,navigate) => {
+export const signup = async (email, password, displayName, navigate) => {
 
   try {
     const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
@@ -29,12 +29,13 @@ export const signup = async (email, password, displayName,navigate) => {
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
-    navigate("/myaccount");
+    navigate("/survey");
   }
   catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorMessage)
+    alert(errorMessage);
   }
 
 }
@@ -44,8 +45,8 @@ export const signIn = async (email, password, navigate) => {
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password);
- /*    console.log(userCredentials.user) */
-    navigate("/myaccount/personalInfo");
+    /*    console.log(userCredentials.user) */
+    navigate("/survey");
 
   }
   catch (error) {
@@ -56,22 +57,22 @@ export const signIn = async (email, password, navigate) => {
 
 }
 
-export const userObserver = (setUser,setLoading) => {
+export const userObserver = (setUser, setLoading) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
 
- /*      const uid = user.uid; */
-   /*    console.log(user) */
-      const { email, displayName, photoURL,uid } = user;
-      setUser({ email, displayName, photoURL,uid })
-      setTimeout(()=> setLoading(false),1000)
-   
-    /*   console.log(uid)
-      console.log(user); */
+      /*      const uid = user.uid; */
+      /*    console.log(user) */
+      const { email, displayName, photoURL, uid } = user;
+      setUser({ email, displayName, photoURL, uid })
+      setTimeout(() => setLoading(false), 1000)
+
+      /*   console.log(uid)
+        console.log(user); */
       // ...
     } else {
       setUser("")
-      setTimeout(()=> setLoading(false),3000)
+      setTimeout(() => setLoading(false), 3000)
 
     }
   });
@@ -92,7 +93,7 @@ export const googleAuth = (navigate) => {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      navigate("/myaccount/personalInfo");
+      navigate("/survey");
       // ...
     }).catch((error) => {
       // Handle Errors here.
@@ -121,7 +122,7 @@ export const forgotPassword = (email) => {
     });
 }
 
-export const updateUser= async (displayName)=>{
+export const updateUser = async (displayName) => {
   await updateProfile(auth.currentUser, {
     displayName: displayName,
   });

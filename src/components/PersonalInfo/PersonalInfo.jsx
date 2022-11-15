@@ -24,9 +24,11 @@ export const PersonalInfo = () => {
   /*   const auth = getAuth(app); */
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-
-    let displayName = input.firstName.charAt(0).toUpperCase() + input.firstName.slice(1,input.firstName.length)+" " + input.lastName.toUpperCase();
+    let displayName =
+      input.firstName.charAt(0).toUpperCase() +
+      input.firstName.slice(1, input.firstName.length) +
+      " " +
+      input.lastName.toUpperCase();
     updateUser(displayName);
     setInput({
       firstName: "",
@@ -37,12 +39,14 @@ export const PersonalInfo = () => {
   };
   return (
     <Container>
-   
-
       <h1 component="h2" variant="h5">
         Personal Info
       </h1>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 ,width:"90%"}}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{ mt: 3, width: "90%" }}
+      >
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -52,7 +56,6 @@ export const PersonalInfo = () => {
               name="email"
               disabled={true}
               value={"Email Adress : " + currentUser.email}
-
             />
           </Grid>
 
@@ -89,7 +92,7 @@ export const PersonalInfo = () => {
           </Grid>
         </Grid>
 
-        <Button type="submit" variant="contained" sx={{ mb: 2,mt:2 }} >
+        <Button type="submit" variant="contained" sx={{ mb: 2, mt: 2 }}>
           Save Changes
         </Button>
       </Box>

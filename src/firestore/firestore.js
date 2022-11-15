@@ -56,26 +56,26 @@ export const readData = async (userId, setData) => {
 }
 
 export const setDataFire = async (userId, type, data) => {
-/*   console.log("setData"); */
+  /*   console.log("setData"); */
 
   await setDoc(doc(db, userId, type), data);
 }
 
 //TODO 
-export const getDataFire = async (userId, type, set,get) => {
+export const getDataFire = async (userId, type, set, get) => {
   /*  const docRef = doc(db, "cities", "SF"); */
   const docRef = doc(db, userId, type);
   const docSnap = await getDoc(docRef);
-let count=0;
+  let count = 0;
   if (docSnap.exists()) {
     console.log("Document data:", docSnap.data()[type]);
     set(docSnap.data()[type])
-  
+
   } else {
     // doc.data() will be undefined in this case
 
     console.log("No such document!");
-    count<1 && get({ q: "chicken" })
+    type === "data" && get({ q: "chicken" })
     count++;
 
   }

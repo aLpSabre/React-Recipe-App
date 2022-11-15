@@ -1,16 +1,12 @@
+/* eslint-disable */
 import axios from "axios";
-import { collection, getDocs } from "firebase/firestore";
+
 import { useEffect } from "react";
 import { useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
 import { Recipes } from "../../components/Recipes/Recipes";
 import { useAuthContext } from "../../context/AuthContext";
-import {
-  db,
-  getDataFire,
-  readData,
-  setDataFire,
-} from "../../firestore/firestore";
+import { getDataFire, setDataFire } from "../../firestore/firestore";
 import {
   FormContainer,
   OptionContainer,
@@ -136,6 +132,7 @@ const Form = () => {
   useEffect(() => {
     if (currentUser) {
       if (data.length) {
+        console.log("data set");
         setDataFire(currentUser.uid, "data", { data: data });
       }
     } else {

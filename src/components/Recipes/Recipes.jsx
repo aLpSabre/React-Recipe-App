@@ -28,40 +28,37 @@ export const Recipes = ({ data }) => {
   }
 
   const handleSaved = (index, data) => {
-
     if (typeof saved[index] === "undefined") {
-      
       setSavedRecipes([...savedRecipes, data]);
-
     } else if (!saved[index]) {
       setSavedRecipes([...savedRecipes, data]);
-
     } else {
-   
-      setSavedRecipes(savedRecipes.filter((element) => element.recipe.url !== data.recipe.url));
-  
+      setSavedRecipes(
+        savedRecipes.filter((element) => element.recipe.url !== data.recipe.url)
+      );
     }
   };
   useEffect(() => {
-    data.length > 0 && setTimeout(() => setDataLoading(false), 1000);
+    setTimeout(() => setDataLoading(false), 1000);
   }, [data]);
 
   useEffect(() => {
-    console.log("current get")
+    console.log("current get");
     currentUser && getDataFire(currentUser.uid, "saved", setSaved);
   }, [currentUser]);
 
   useEffect(() => {
-Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved: saved });
-  }, [ saved]);
-/*   useEffect(() => {
+    Object.keys(saved).length !== 0 &&
+      setDataFire(currentUser.uid, "saved", { saved: saved });
+  }, [saved]);
+  useEffect(() => {
     console.log(savedRecipes);
-  }, [savedRecipes]); */
+  }, [savedRecipes]);
   return (
     <>
       {dataLoading ? (
         <GridLoader color="#FC6011" size={30} speedMultiplier={1} />
-      ) : (
+      ) : (data.length ?
         data.map((data, index) => (
           <Container
             key={index}
@@ -101,46 +98,81 @@ Object.keys(saved).length !== 0 && setDataFire(currentUser.uid, "saved", { saved
                 color="secondary"
                 onClick={(e) => {
                   handleClick(e);
-                  setLoading({ ...loading, [data.recipe.uri.slice(
-                    data.recipe.uri.indexOf("#") + 1,
-                    data.recipe.uri.length)]: true });
-                  setTimeout(
-                    () => setLoading({ ...loading, [data.recipe.uri.slice(
+                  setLoading({
+                    ...loading,
+                    [data.recipe.uri.slice(
                       data.recipe.uri.indexOf("#") + 1,
-                      data.recipe.uri.length)]: false }),
-                    1000
-                  );
-                  setSaved({ ...saved, [data.recipe.uri.slice(
-                    data.recipe.uri.indexOf("#") + 1,
-                    data.recipe.uri.length)]: !saved[data.recipe.uri.slice(
+                      data.recipe.uri.length
+                    )]: true,
+                  });
+
+                  setLoading({
+                    ...loading,
+                    [data.recipe.uri.slice(
                       data.recipe.uri.indexOf("#") + 1,
-                      data.recipe.uri.length)] });
+                      data.recipe.uri.length
+                    )]: false,
+                  });
+                  setSaved({
+                    ...saved,
+                    [data.recipe.uri.slice(
+                      data.recipe.uri.indexOf("#") + 1,
+                      data.recipe.uri.length
+                    )]:
+                      !saved[
+                        data.recipe.uri.slice(
+                          data.recipe.uri.indexOf("#") + 1,
+                          data.recipe.uri.length
+                        )
+                      ],
+                  });
                   currentUser || navigate("/login");
 
-                  handleSaved(data.recipe.uri.slice(
-                    data.recipe.uri.indexOf("#") + 1,
-                    data.recipe.uri.length), data);
+                  handleSaved(
+                    data.recipe.uri.slice(
+                      data.recipe.uri.indexOf("#") + 1,
+                      data.recipe.uri.length
+                    ),
+                    data
+                  );
                 }}
-                loading={loading[data.recipe.uri.slice(
-                  data.recipe.uri.indexOf("#") + 1,
-                  data.recipe.uri.length)]}
+                loading={
+                  loading[
+                    data.recipe.uri.slice(
+                      data.recipe.uri.indexOf("#") + 1,
+                      data.recipe.uri.length
+                    )
+                  ]
+                }
                 loadingPosition="start"
                 startIcon={<SaveIcon />}
                 variant="contained"
                 sx={{
-                  backgroundColor: `${saved[data.recipe.uri.slice(
-                    data.recipe.uri.indexOf("#") + 1,
-                    data.recipe.uri.length)] ? "#FC6011" : "#11263C"}`,
+                  backgroundColor: `${
+                    saved[
+                      data.recipe.uri.slice(
+                        data.recipe.uri.indexOf("#") + 1,
+                        data.recipe.uri.length
+                      )
+                    ]
+                      ? "#FC6011"
+                      : "#11263C"
+                  }`,
                   "&:hover": { backgroundColor: "#FC6011" },
                 }}
               >
-                {saved[data.recipe.uri.slice(
-                  data.recipe.uri.indexOf("#") + 1,
-                  data.recipe.uri.length)] ? "Unsave" : "Save"}
+                {saved[
+                  data.recipe.uri.slice(
+                    data.recipe.uri.indexOf("#") + 1,
+                    data.recipe.uri.length
+                  )
+                ]
+                  ? "Unsave"
+                  : "Save"}
               </LoadingButton>
             </Url>
           </Container>
-        ))
+        )) : <h2>No Saved Recipes Found!</h2>
       )}
     </>
   );
