@@ -112,6 +112,7 @@ const Form = () => {
     } else {
       let localData = JSON.parse(localStorage.getItem("DATA")) || [];
       setData(localData);
+      console.log(localData,"local")
       localData.length === 0 && get({ q: "chicken" });
       let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
@@ -131,7 +132,8 @@ const Form = () => {
         setDataFire(currentUser.uid, "data", { data: data });
       }
     } else {
-      localStorage.setItem("DATA", JSON.stringify(data));
+    
+      data.length && localStorage.setItem("DATA", JSON.stringify(data));
     }
   }, [data]);
 
@@ -141,7 +143,7 @@ const Form = () => {
         setDataFire(currentUser.uid, "input", { input: input });
       }
     } else {
-      localStorage.setItem("INPUT", JSON.stringify(input));
+      data.length && localStorage.setItem("INPUT", JSON.stringify(input));
     }
   }, [input]);
 
@@ -151,7 +153,7 @@ const Form = () => {
         setDataFire(currentUser.uid, "check", { check: check });
       }
     } else {
-      localStorage.setItem("CHECK", JSON.stringify(check));
+      data.length && localStorage.setItem("CHECK", JSON.stringify(check));
     }
   }, [check]);
   useEffect(() => {
@@ -160,7 +162,7 @@ const Form = () => {
         setDataFire(currentUser.uid, "value", { value: value });
       }
     } else {
-      localStorage.setItem("RANGE", JSON.stringify(value));
+      data.length && localStorage.setItem("RANGE", JSON.stringify(value));
     }
   }, [value]);
 
