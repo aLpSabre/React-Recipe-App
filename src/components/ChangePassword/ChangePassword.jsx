@@ -18,7 +18,7 @@ const Container = styled.div`
 export const ChangePassword = () => {
   const { currentUser } = useAuthContext();
   const [send, setSend] = useState(false);
-  console.log(currentUser.email);
+
   return (
     <Container>
       <h1>Change Password?</h1>

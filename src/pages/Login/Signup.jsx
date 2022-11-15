@@ -14,7 +14,10 @@ import GoogleIcon from "@mui/icons-material/Google";
 import { googleAuth, signup } from "../../auth/firebase";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuthContext } from "../../context/AuthContext";
 export default function SignUp() {
+
+  const { currentUser,loading,setLoading } = useAuthContext();
   const navigate = useNavigate();
   const [input, setInput] = useState({
     firstName: "",
@@ -26,10 +29,14 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    let displayName = input.firstName + " " + input.lastName;
+ let displayName =
+      input.firstName.charAt(0).toUpperCase() +
+      input.firstName.slice(1, input.firstName.length) +
+      " " +
+      input.lastName.toUpperCase();
 
     signup(input.email, input.password, displayName, navigate);
-
+   
     setInput({
       firstName: "",
       lastName: "",

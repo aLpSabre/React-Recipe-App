@@ -16,11 +16,12 @@ export const AuthContextProvider = ({ children }) => {
   const [savedRecipes, setSavedRecipes] = useState([]);
 
   useEffect(() => {
-    userObserver(setUser, setLoading);
+    userObserver(setUser, setLoading,setSavedRecipes);
   }, []);
   useEffect(() => {
-    currentUser &&
+    if (currentUser) {
       getDataFire(currentUser.uid, "savedRecipes", setSavedRecipes);
+    }
   }, [currentUser]);
 
   useEffect(() => {
@@ -31,7 +32,13 @@ export const AuthContextProvider = ({ children }) => {
   }, [savedRecipes]);
   return (
     <AuthContext.Provider
-      value={{ currentUser, loading, savedRecipes, setSavedRecipes }}
+      value={{
+        currentUser,
+        loading,
+        setLoading,
+        savedRecipes,
+        setSavedRecipes,
+      }}
     >
       {children}
     </AuthContext.Provider>

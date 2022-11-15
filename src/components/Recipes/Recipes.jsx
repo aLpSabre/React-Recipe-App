@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import GridLoader from "react-spinners/GridLoader";
 import { getDataFire, setDataFire } from "../../firestore/firestore";
-export const Recipes = ({ data }) => {
+export const Recipes = ({ data, savedSection }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState({});
   const [saved, setSaved] = useState({});
@@ -38,10 +38,10 @@ export const Recipes = ({ data }) => {
       );
     }
   };
+
   useEffect(() => {
     setTimeout(() => setDataLoading(false), 1000);
   }, [data]);
-
   useEffect(() => {
     currentUser && getDataFire(currentUser.uid, "saved", setSaved);
   }, [currentUser]);
@@ -170,8 +170,10 @@ export const Recipes = ({ data }) => {
             </Url>
           </Container>
         ))
-      ) : (
+      ) : savedSection ? (
         <h2>No Saved Recipes Found!</h2>
+      ) : (
+        <GridLoader color="#FC6011" size={30} speedMultiplier={1} />
       )}
     </>
   );

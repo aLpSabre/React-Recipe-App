@@ -34,8 +34,7 @@ export const signup = async (email, password, displayName, navigate) => {
   catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-
-    toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : `${errorMessage.slice(10, errorMessage.length - 22)} !`, {
+    toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : errorCode === "auth/invalid-email" ? `${errorMessage.slice(10, errorMessage.length - 22)} !` : errorMessage, {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -54,7 +53,7 @@ export const signIn = async (email, password, navigate) => {
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-
+    console.log("sign in")
     navigate("/survey");
 
   }
@@ -65,7 +64,7 @@ export const signIn = async (email, password, navigate) => {
 
     const errorCode = error.code;
 
-    toast.error(errorCode === "auth/wrong-password" ? "Plaese Enter a correct password!" : "Plaese enter a correct E-Mail!", {
+    toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : errorCode === "auth/invalid-email" ? `${errorMessage.slice(10, errorMessage.length - 22)} !` : errorMessage, {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -79,7 +78,7 @@ export const signIn = async (email, password, navigate) => {
 
 }
 
-export const userObserver = (setUser, setLoading) => {
+export const userObserver = (setUser, setLoading, setSavedRecipes) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
 
@@ -89,7 +88,9 @@ export const userObserver = (setUser, setLoading) => {
 
     } else {
       setUser("")
-      setTimeout(() => setLoading(false), 3000)
+      setSavedRecipes([])
+      setTimeout(() => setLoading(false), 1000)
+
 
     }
   });
@@ -117,7 +118,7 @@ export const googleAuth = (navigate) => {
       const errorCode = error.code;
       const errorMessage = error.message;
 
-      toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : `${errorMessage.slice(10, errorMessage.length - 22)} !`, {
+      toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : errorCode === "auth/invalid-email" ? `${errorMessage.slice(10, errorMessage.length - 22)} !` : errorMessage, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

@@ -15,6 +15,7 @@ export const MyAccount = () => {
   const navigate = useNavigate();
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
+
     currentUser && setTimeout(() => setDataLoading(false), 1000);
   }, [currentUser]);
   return (

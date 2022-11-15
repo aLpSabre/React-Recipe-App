@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { collection, addDoc, getFirestore, getDocs, setDoc, doc, getDocFromCache, getDoc } from "firebase/firestore";
+import { collection, getFirestore, getDocs, setDoc, doc, getDoc } from "firebase/firestore";
 
 //* Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,21 +15,6 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
-
-export const addData = async () => {
-  try {
-    const docRef = await addDoc(collection(db, "test"), {
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815,
-      object: { "ali": 1 },
-      id: 1222
-    });
-    /*     console.log("Document written with ID: ", docRef.id); */
-  } catch (e) {
-    /*     console.error("Error adding document: ", e); */
-  }
-}
 
 export const readData = async (userId, setData) => {
 
@@ -50,9 +35,8 @@ export const getDataFire = async (userId, type, set, get) => {
 
   const docRef = doc(db, userId, type);
   const docSnap = await getDoc(docRef);
-
   if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data()[type]);
+   
     set(docSnap.data()[type])
 
   } else {
