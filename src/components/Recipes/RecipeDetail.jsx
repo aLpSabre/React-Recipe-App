@@ -199,7 +199,7 @@ export const RecipeDetail = () => {
   const { id } = useParams();
   const get = async () => {
     const response = await axios(
-      `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
+      `https://api.edamam.com/search?app_id=${process.env.REACT_APP_EDAMAM_APP_ID}&app_key=${process.env.REACT_APP_EDAMAM_APP_KEY}&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
     );
     console.log();
     setTimeout(() => setLoading(false), 1000);

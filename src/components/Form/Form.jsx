@@ -67,8 +67,7 @@ const Form = () => {
   const { currentUser } = useAuthContext();
 
   const get = async (input) => {
-    let url =
-      "https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21";
+    let url = `https://api.edamam.com/search?app_id=${process.env.REACT_APP_EDAMAM_APP_ID}&app_key=${process.env.REACT_APP_EDAMAM_APP_KEY}`;
 
     url = url + "&" + "q=" + (input.q ? input.q : " ");
 
@@ -112,7 +111,7 @@ const Form = () => {
     } else {
       let localData = JSON.parse(localStorage.getItem("DATA")) || [];
       setData(localData);
- 
+
       localData.length === 0 && get({ q: "chicken" });
       let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
@@ -132,7 +131,6 @@ const Form = () => {
         setDataFire(currentUser.uid, "data", { data: data });
       }
     } else {
-    
       data.length && localStorage.setItem("DATA", JSON.stringify(data));
     }
   }, [data]);

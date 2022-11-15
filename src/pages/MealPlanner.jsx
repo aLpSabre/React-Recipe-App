@@ -33,7 +33,7 @@ export const MealPlanner = () => {
   return (
     <Container>
       <img src={coming} alt="coming" />
-      <a href="https://de.freepik.com/vektoren-kostenlos/im-bau-mit-schwarzen-und-gelben-streifen_13197704.htm#query=under%20construction&position=0&from_view=keyword" target={"_blank"}>Bild von starline auf Freepik</a> 
+      <a href="https://de.freepik.com/vektoren-kostenlos/im-bau-mit-schwarzen-und-gelben-streifen_13197704.htm#query=under%20construction&position=0&from_view=keyword"  rel="noreferrer" target={"_blank"}>Bild von starline auf Freepik</a> 
     </Container>
   );
 };

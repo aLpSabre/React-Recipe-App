@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import {
   Container,
@@ -12,7 +12,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useEffect, useState } from "react";
 export const MyAccount = () => {
   const { currentUser } = useAuthContext();
-  const navigate = useNavigate();
+
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
 
