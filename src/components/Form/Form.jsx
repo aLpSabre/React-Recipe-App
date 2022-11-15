@@ -17,6 +17,7 @@ import {
   RecipeContainer,
   SecondContainer,
 } from "../Form/Form.styled";
+
 const Form = () => {
   const [show, setShow] = useState(false);
   const [first, setFirst] = useState(false);
@@ -64,7 +65,6 @@ const Form = () => {
     maxTime: "",
   });
   const { currentUser } = useAuthContext();
-  /*   console.log(currentUser); */
 
   const get = async (input) => {
     let url =
@@ -100,15 +100,11 @@ const Form = () => {
     const response = await axios(url);
     setLoading(true);
     setTimeout(() => setLoading(false), 1000);
-    console.log(response.data.hits);
     setData(response.data.hits);
   };
 
   useEffect(() => {
-    /*     console.log("useEffect form"); */
-    /*   console.log("bAIbBCQpeRWZWrhtbSoct39HH802", "useEffect"); */
     if (currentUser) {
-      /*   readData(currentUser.uid, setData); */
       getDataFire(currentUser.uid, "data", setData, get);
       getDataFire(currentUser.uid, "input", setInput, get);
       getDataFire(currentUser.uid, "check", setCheck, get);
@@ -132,7 +128,6 @@ const Form = () => {
   useEffect(() => {
     if (currentUser) {
       if (data.length) {
-        console.log("data set");
         setDataFire(currentUser.uid, "data", { data: data });
       }
     } else {

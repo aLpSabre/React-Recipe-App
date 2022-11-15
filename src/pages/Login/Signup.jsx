@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { googleAuth, signup } from "../../auth/firebase";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function SignUp() {
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -28,6 +29,7 @@ export default function SignUp() {
     let displayName = input.firstName + " " + input.lastName;
 
     signup(input.email, input.password, displayName, navigate);
+
     setInput({
       firstName: "",
       lastName: "",
@@ -132,13 +134,19 @@ export default function SignUp() {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link  rel="noreferrer" variant="body2" onClick={() => navigate("/login")}>
+              <Link
+                rel="noreferrer"
+                variant="body2"
+                onClick={() => navigate("/login")}
+              >
                 Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
+
+      <ToastContainer />
     </Container>
   );
 }

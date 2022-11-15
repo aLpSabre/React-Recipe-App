@@ -1,28 +1,15 @@
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { forgotPassword, googleAuth, signIn } from "../../auth/firebase";
-import GoogleIcon from "@mui/icons-material/Google";
-
-const theme = createTheme();
+import { forgotPassword } from "../../auth/firebase";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ForgotPassword() {
-  /*   const auth = getAuth(app); */
-  const navigate = useNavigate();
   const [input, setInput] = useState("");
 
   const handleSubmit = (event) => {
@@ -73,6 +60,7 @@ export default function ForgotPassword() {
           </Button>
         </Box>
       </Box>
+      <ToastContainer />
     </Container>
   );
 }

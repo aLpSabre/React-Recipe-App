@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //* Your web app's Firebase configuration
 const firebaseConfig = {
@@ -25,17 +25,26 @@ export const signup = async (email, password, displayName, navigate) => {
 
   try {
     const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-    console.log(userCredentials.user)
     await updateProfile(auth.currentUser, {
       displayName: displayName,
     });
     navigate("/survey");
+
   }
   catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage)
-    alert(errorMessage);
+
+    toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : `${errorMessage.slice(10, errorMessage.length - 22)} !`, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
 }
@@ -45,14 +54,27 @@ export const signIn = async (email, password, navigate) => {
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-    /*    console.log(userCredentials.user) */
+
     navigate("/survey");
 
   }
   catch (error) {
-    const errorCode = error.code;
+
+
     const errorMessage = error.message;
-    console.log(errorMessage)
+
+    const errorCode = error.code;
+
+    toast.error(errorCode === "auth/wrong-password" ? "Plaese Enter a correct password!" : "Plaese enter a correct E-Mail!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   }
 
 }
@@ -61,15 +83,10 @@ export const userObserver = (setUser, setLoading) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
 
-      /*      const uid = user.uid; */
-      /*    console.log(user) */
       const { email, displayName, photoURL, uid } = user;
       setUser({ email, displayName, photoURL, uid })
       setTimeout(() => setLoading(false), 1000)
 
-      /*   console.log(uid)
-        console.log(user); */
-      // ...
     } else {
       setUser("")
       setTimeout(() => setLoading(false), 3000)
@@ -80,7 +97,7 @@ export const userObserver = (setUser, setLoading) => {
 
 export const logOut = (navigate) => {
   signOut(auth);
-  console.log("sign out");
+
   navigate("/login")
 
 }
@@ -99,11 +116,18 @@ export const googleAuth = (navigate) => {
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
-      const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+
+      toast.error(errorCode === "auth/invalid-email" ? "Please enter an valid E-Mail!" : `${errorMessage.slice(10, errorMessage.length - 22)} !`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
     });
 
 }
@@ -111,13 +135,30 @@ export const googleAuth = (navigate) => {
 export const forgotPassword = (email) => {
   sendPasswordResetEmail(auth, email)
     .then(() => {
-      // Password reset email sent!
-      // ..
-      console.log("email sent");
+      toast.success("E-Mail is sent!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      toast.error("Please enter an valid E-Mail!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       // ..
     });
 }

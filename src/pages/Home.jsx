@@ -11,7 +11,6 @@ const Container = styled.div`
   color: #11263c;
   @media (max-width: 1000px) {
     flex-direction: column-reverse;
-
   }
 `;
 
@@ -29,7 +28,6 @@ const ImageContainer = styled.div`
   @media (max-width: 1000px) {
     width: 100%;
     height: 50vh;
-
   }
 `;
 const InfoContainer = styled.div`
@@ -53,23 +51,21 @@ const InfoContainer = styled.div`
   @media (max-width: 1000px) {
     width: 100%;
     height: 50vh;
-    h1{
+    h1 {
       font-size: 1.6rem;
     }
-    p{
-      font-size:1rem;
+    p {
+      font-size: 1rem;
     }
   }
   @media (max-width: 345px) {
-
-    h1{
+    h1 {
       font-size: 1.2rem;
     }
-    p{
-      font-size:0.8rem;
+    p {
+      font-size: 0.8rem;
     }
   }
-
 `;
 const Button = styled.button`
   width: 120px;

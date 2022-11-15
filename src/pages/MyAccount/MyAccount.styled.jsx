@@ -64,6 +64,6 @@ export const OutletContainer = styled.div`
   align-items: flex-start;
   @media (max-width: 1000px) {
     justify-content: center;
-  align-items: flex-start;
+    align-items: flex-start;
   }
 `;

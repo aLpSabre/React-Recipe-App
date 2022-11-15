@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-
-export const Container =styled.div`
+export const Container = styled.div`
   display: flex;
   justify-content: left;
   align-items: flex-start;
@@ -9,4 +8,4 @@ export const Container =styled.div`
   gap: 1rem;
   margin: 2rem 0 0 2rem;
   width: 80%;
-  `
+`;

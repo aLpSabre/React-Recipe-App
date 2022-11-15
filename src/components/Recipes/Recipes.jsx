@@ -43,7 +43,6 @@ export const Recipes = ({ data }) => {
   }, [data]);
 
   useEffect(() => {
-    console.log("current get");
     currentUser && getDataFire(currentUser.uid, "saved", setSaved);
   }, [currentUser]);
 
@@ -51,14 +50,12 @@ export const Recipes = ({ data }) => {
     Object.keys(saved).length !== 0 &&
       setDataFire(currentUser.uid, "saved", { saved: saved });
   }, [saved]);
-  useEffect(() => {
-    console.log(savedRecipes);
-  }, [savedRecipes]);
+
   return (
     <>
       {dataLoading ? (
         <GridLoader color="#FC6011" size={30} speedMultiplier={1} />
-      ) : (data.length ?
+      ) : data.length ? (
         data.map((data, index) => (
           <Container
             key={index}
@@ -172,7 +169,9 @@ export const Recipes = ({ data }) => {
               </LoadingButton>
             </Url>
           </Container>
-        )) : <h2>No Saved Recipes Found!</h2>
+        ))
+      ) : (
+        <h2>No Saved Recipes Found!</h2>
       )}
     </>
   );

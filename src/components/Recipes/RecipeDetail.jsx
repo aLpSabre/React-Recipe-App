@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 60%;
-  min-height: 80vh ;
+  min-height: 80vh;
   flex-direction: column;
   margin: auto;
   gap: 1rem;
@@ -19,7 +19,7 @@ const Container = styled.div`
   padding: 2rem 0;
   cursor: pointer;
 
- span span:nth-child(odd){
+  span span:nth-child(odd) {
     background-color: #11263c !important;
   }
 
@@ -193,7 +193,6 @@ const Button = styled.button`
   }
 `;
 
-
 export const RecipeDetail = () => {
   const [recipe, setRecipe] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -203,92 +202,95 @@ export const RecipeDetail = () => {
       `https://api.edamam.com/search?app_id=61112930&app_key=617e15bff01b2760c29ccc82729d0e21&r=http://www.edamam.com/ontologies/edamam.owl%23${id}`
     );
     console.log();
-    setTimeout(() => setLoading(false), 1000);  
+    setTimeout(() => setLoading(false), 1000);
     setRecipe(response.data[0]);
   };
   useEffect(() => {
     get();
-
-
   }, []);
 
-  return (<>
-    {loading ?<Container><GridLoader color={"#FC6011"} size={30}  /></Container>  : <Container>
-    <h1>{recipe?.label}</h1>
-    <Header>
-      <div>
-        <ImageContainer>
-        <LazyLoad height={350} width={350} threshold={0.95}>
-        <img src={recipe?.image} alt="food" />
-            </LazyLoad>
-        
-        </ImageContainer>
-      </div>
-      <div>
-        {" "}
-        <InfoContainer>
-          <InfoDetail>
-            <InfoTitle>Total Time:</InfoTitle>
-            <p>{recipe?.totalTime ? recipe?.totalTime : "Not given"}</p>
-          </InfoDetail>
-          <InfoDetail>
-            <InfoTitle>Total Calories:</InfoTitle>
-            <p>{Math.trunc(recipe?.calories)}</p>
-          </InfoDetail>
-          <InfoDetail>
-            <InfoTitle>Ingredients</InfoTitle>
-            <p>{[recipe?.ingredients].length}</p>
-          </InfoDetail>
-          <InfoDetail>
-            <InfoTitle>Servings:</InfoTitle>
-            <p>{recipe?.yield}</p>
-          </InfoDetail>
-          <InfoDetail>
-            <InfoTitle>Cuisine Type: </InfoTitle>
-            {recipe?.cuisineType?.map((element, index) => (
-              <p key={index}>{element}</p>
+  return (
+    <>
+      {loading ? (
+        <Container>
+          <GridLoader color={"#FC6011"} size={30} />
+        </Container>
+      ) : (
+        <Container>
+          <h1>{recipe?.label}</h1>
+          <Header>
+            <div>
+              <ImageContainer>
+                <LazyLoad height={350} width={350} threshold={0.95}>
+                  <img src={recipe?.image} alt="food" />
+                </LazyLoad>
+              </ImageContainer>
+            </div>
+            <div>
+              {" "}
+              <InfoContainer>
+                <InfoDetail>
+                  <InfoTitle>Total Time:</InfoTitle>
+                  <p>{recipe?.totalTime ? recipe?.totalTime : "Not given"}</p>
+                </InfoDetail>
+                <InfoDetail>
+                  <InfoTitle>Total Calories:</InfoTitle>
+                  <p>{Math.trunc(recipe?.calories)}</p>
+                </InfoDetail>
+                <InfoDetail>
+                  <InfoTitle>Ingredients</InfoTitle>
+                  <p>{[recipe?.ingredients].length}</p>
+                </InfoDetail>
+                <InfoDetail>
+                  <InfoTitle>Servings:</InfoTitle>
+                  <p>{recipe?.yield}</p>
+                </InfoDetail>
+                <InfoDetail>
+                  <InfoTitle>Cuisine Type: </InfoTitle>
+                  {recipe?.cuisineType?.map((element, index) => (
+                    <p key={index}>{element}</p>
+                  ))}
+                </InfoDetail>
+
+                <InfoDetail>
+                  <InfoTitle>Dish Type: </InfoTitle>
+                  {recipe?.dishType?.map((element, index) => (
+                    <p key={index}>{element}</p>
+                  ))}
+                </InfoDetail>
+              </InfoContainer>
+            </div>
+          </Header>
+
+          <SpanContainer>
+            {recipe?.healthLabels?.map((element, index) => (
+              <Spans key={index}>{element}</Spans>
             ))}
-          </InfoDetail>
+          </SpanContainer>
 
-          <InfoDetail>
-            <InfoTitle>Dish Type: </InfoTitle>
-            {recipe?.dishType?.map((element, index) => (
-              <p key={index}>{element}</p>
-            ))}
-          </InfoDetail>
-        </InfoContainer>
-      </div>
-    </Header>
-
-    <SpanContainer>
-      {recipe?.healthLabels?.map((element, index) => (
-        <Spans key={index}>{element}</Spans>
-      ))}
-    </SpanContainer>
-
-    <Ingr>
-      <div>
-        <h2>{recipe?.ingredients?.length} Ingredients </h2>
-        <ul>
-          {recipe?.ingredientLines?.map((element, index) => (
-            <li key={index}>{element}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Preparation</h2>
-        <Button>
-          <a href={recipe?.url} target="_blank">
-            Instructions
-          </a>{" "}
-        </Button>
-        <a href={recipe?.url} target="_blank">
-          on {recipe?.source}
-        </a>
-      </div>
-    </Ingr>
-  </Container>}</>);
-
-  }
-
-
+          <Ingr>
+            <div>
+              <h2>{recipe?.ingredients?.length} Ingredients </h2>
+              <ul>
+                {recipe?.ingredientLines?.map((element, index) => (
+                  <li key={index}>{element}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2>Preparation</h2>
+              <Button>
+                <a href={recipe?.url} target="_blank">
+                  Instructions
+                </a>{" "}
+              </Button>
+              <a href={recipe?.url} target="_blank">
+                on {recipe?.source}
+              </a>
+            </div>
+          </Ingr>
+        </Container>
+      )}
+    </>
+  );
+};

@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./notfound.css";
 export const NotFound = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   return (
     <>
       <div className="main">
@@ -134,9 +134,14 @@ export const NotFound = () => {
           </g>
         </svg>
         <div>
-        
-          <Button type="button" fullWidth variant="contained" sx={{ mb: 2}} onClick={()=>navigate(-1)}>
-          Go Back !
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            sx={{ mb: 2 }}
+            onClick={() => navigate(-1)}
+          >
+            Go Back !
           </Button>
         </div>
       </div>

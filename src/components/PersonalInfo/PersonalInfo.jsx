@@ -6,11 +6,8 @@ import TextField from "@mui/material/TextField";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-
 import Typography from "@mui/material/Typography";
-
 import { useState } from "react";
-
 import { Container } from "./PersonalInfo.styled";
 import { useAuthContext } from "../../context/AuthContext";
 import { updateUser } from "../../auth/firebase";
@@ -20,8 +17,6 @@ export const PersonalInfo = () => {
     firstName: "",
     lastName: "",
   });
-
-  /*   const auth = getAuth(app); */
 
   const handleSubmit = (event) => {
     let displayName =

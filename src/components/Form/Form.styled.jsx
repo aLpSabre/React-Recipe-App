@@ -40,7 +40,6 @@ const FormContainer = styled.form`
     border-radius: 10px;
     margin-bottom: 0.7rem;
     font-weight: bold;
- 
   }
   input[type="checkbox"],
   input[type="radio"] {
@@ -80,7 +79,7 @@ const FormContainer = styled.form`
   .first {
     width: 100%;
   }
-  .filter{
+  .filter {
     display: none;
   }
   @media (max-width: 1000px) {
@@ -90,21 +89,21 @@ const FormContainer = styled.form`
     justify-content: center;
     align-items: center;
     min-height: 0vh;
-    height:auto;
- /*    height: ${({ primary }) => (primary === "show" ? "110vh" : "23vh")}; */
-    .filter{
+    height: auto;
+    /*    height: ${({ primary }) =>
+      primary === "show" ? "110vh" : "23vh"}; */
+    .filter {
       display: block;
       font-size: 1.2rem;
       margin: 0.5rem;
       font-weight: bold;
-      i{
-        color:#f97b3b;
+      i {
+        color: #f97b3b;
         margin-left: 0.6rem;
       }
-
     }
   }
-/*   @media (max-height:740px){
+  /*   @media (max-height:740px){
     min-height: 0vh;
     height: ${({ primary }) => (primary === "show" ? "140vh" : "25vh")};
   } */
@@ -125,16 +124,16 @@ const RecipeContainer = styled.div`
   width: 95%;
   min-height: 70vh;
   gap: 2rem;
-  padding-bottom:2rem;
+  padding-bottom: 2rem;
   cursor: pointer;
-  .no-match{
+  .no-match {
     font-size: 2rem;
     font-weight: bold;
   }
-  span span:nth-child(odd){
+  span span:nth-child(odd) {
     background-color: #11263c !important;
   }
-  span{
+  span {
     align-self: center;
   }
 `;

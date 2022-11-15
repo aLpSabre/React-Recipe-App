@@ -74,9 +74,11 @@ export default function CustomizedMenus() {
         variant="contained"
         disableElevation
         onClick={handleClick}
-     
         endIcon={<KeyboardArrowDownIcon />}
-        sx={{   backgroundColor: "#11263c","&:hover":{backgroundColor: "#fc6011"}}}
+        sx={{
+          backgroundColor: "#11263c",
+          "&:hover": { backgroundColor: "#fc6011" },
+        }}
       >
         My Profile
       </Button>
@@ -99,8 +101,13 @@ export default function CustomizedMenus() {
           <AccountBoxIcon />
           My Account
         </MenuItem>
-        <MenuItem onClick={()=>{handleClose()   
-          navigate("myaccount/savedRecipes");}} disableRipple>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("myaccount/savedRecipes");
+          }}
+          disableRipple
+        >
           <BookmarkIcon />
           Saved Recipes
         </MenuItem>
