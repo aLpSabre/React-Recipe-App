@@ -1,6 +1,5 @@
 /* eslint-disable */
 import axios from "axios";
-
 import { useEffect } from "react";
 import { useState } from "react";
 import GridLoader from "react-spinners/GridLoader";
