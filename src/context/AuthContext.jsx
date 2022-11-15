@@ -19,7 +19,6 @@ export const AuthContextProvider = ({ children }) => {
     userObserver(setUser, setLoading);
   }, []);
   useEffect(() => {
-    console.log(currentUser, "currentuser");
     currentUser &&
       getDataFire(currentUser.uid, "savedRecipes", setSavedRecipes);
   }, [currentUser]);

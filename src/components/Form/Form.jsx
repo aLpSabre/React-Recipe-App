@@ -112,7 +112,7 @@ const Form = () => {
     } else {
       let localData = JSON.parse(localStorage.getItem("DATA")) || [];
       setData(localData);
-      console.log(localData,"local")
+ 
       localData.length === 0 && get({ q: "chicken" });
       let localInput = JSON.parse(localStorage.getItem("INPUT")) || [];
 
