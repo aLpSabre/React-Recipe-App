@@ -28,7 +28,7 @@ Users are able to:
 - Sign in with their account on the app or google account
 - Get error message if they try to sign up with invalid email or password
 - Do these if they have an account:
-  - Save the recipes and see them, on Saved Recipes tab under my account
+  - Save the recipes and see them  by their account for every user, on Saved Recipes tab under my account
   - See their last selections on the form,recipe results and saved recipes by their own account on their next visit
   - See their own personal info on the personal info tab under my account
   - Change their password if they want to, on the change password tab under my account
