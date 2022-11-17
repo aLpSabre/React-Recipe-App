@@ -38,7 +38,13 @@ Users are able to:
 
 -💻 Desktop-View(Please wait until the videos are uploaded,if not please refresh the page!)
 
+-Part1
+
 https://user-images.githubusercontent.com/85255784/202576146-74aaaf44-0286-40e5-8a74-f12c4082b769.mp4
+
+-Part2
+
+https://user-images.githubusercontent.com/85255784/202577304-bb1fcade-d285-45cd-8d78-e5b4d35edf97.mp4
 
 
 -📱 Mobile-View (Please wait until the videos are uploaded,if not please refresh the page!)
