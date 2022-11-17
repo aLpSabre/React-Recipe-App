@@ -37,7 +37,12 @@ Users are able to:
 ### Screenshot
 
 -💻 Desktop-View
-![](./gifs/desktop-gif.gif)
+
+
+
+
+https://user-images.githubusercontent.com/85255784/202576146-74aaaf44-0286-40e5-8a74-f12c4082b769.mp4
+
 
 ![](./gifs/desktop-gif-2.gif)
 
