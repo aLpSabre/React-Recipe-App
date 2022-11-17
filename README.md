@@ -49,6 +49,7 @@ https://user-images.githubusercontent.com/85255784/202577304-bb1fcade-d285-45cd-
 
 -📱 Mobile-View (Please wait until the videos are uploaded,if not please refresh the page!)
 
+https://user-images.githubusercontent.com/85255784/202580445-f94c533d-caec-495d-8766-ec48467203bf.mp4
 
 ### Links
 
