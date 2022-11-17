@@ -36,18 +36,13 @@ Users are able to:
 
 ### Screenshot
 
--💻 Desktop-View
-
-
-
+-💻 Desktop-View(Please wait until the videos is uploaded,if not please refresh the page!)
 
 https://user-images.githubusercontent.com/85255784/202576146-74aaaf44-0286-40e5-8a74-f12c4082b769.mp4
 
 
-![](./gifs/desktop-gif-2.gif)
+-📱 Mobile-View (Please wait until the videos is uploaded,if not please refresh the page!)
 
--📱 Mobile-View
-![](./gifs/mobile-view.gif)
 
 ### Links
 
@@ -97,4 +92,4 @@ const getIP = async function (ip) {
 
 ## Author
 
-- Frontend Mentor - [@alpbrace](https://www.frontendmentor.io/profile/alpbrace)
+- Muhammed Ubeyde Alpkilic - [@aLpSabre](https://github.com/aLpSabre)
