@@ -131,10 +131,11 @@ I also learned how to use Context API, Firebase Authentication, Firestore, React
 ### Useful resources
 
 - [EDAMAM RECIPE API](https://developer.edamam.com/edamam-docs-recipe-api) -I used this API to get recipes.
-- [REACT SPINNERS by David Hu](https://www.davidhu.io/react-spinners/) -I used this package for spinners.
-- [React Lazy Load Component](https://www.npmjs.com/package/react-lazy-load) -I used this Component for image lazy load.
 - [Firebase](https://firebase.google.com/) -I used this SDK for user authentication.
 - [Firestore](https://firebase.google.com/docs/firestore?hl=en) -I used this NoSQL cloud database to store the users informations.
+- [REACT SPINNERS by David Hu](https://www.davidhu.io/react-spinners/) -I used this package for spinners.
+- [React Lazy Load Component](https://www.npmjs.com/package/react-lazy-load) -I used this Component for image lazy load.
+
 
 
 ## Author
