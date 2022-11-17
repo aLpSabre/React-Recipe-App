@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# The World's Food
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of contents
 
-## Available Scripts
+- [Overview](#overview)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
 
-In the project directory, you can run:
+## Overview
 
-### `yarn start`
+This is a real-time Recipe App made with React.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Users are able to:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- View the optimal layout for each page depending on their device's screen size
+- Search for any food recipes with its own name or product name
+- Filter results by meal type, dish type, health preferences, diet preferences, calories, ingridients and time
+- See their last selections on the form and recipe results on their next visit 
+- See the recipe details
+- See 404 Error message if they try to go to unexisting part of the website
+- Sign up by creating their own account or with their google account
+- Get error message if they try to sign up with invalid email or password with under 6 characters
+- Sign in with their account on the app or google account
+- Get error message if they try to sign up with invalid email or password
+- Do these if they have an account:
+  - Save the recipes and see them, on Saved Recipes tab under my account
+  - See their last selections on the form,recipe results and saved recipes by their own account on their next visit 
+  - See their own personal info on the personal info tab under my account
+  - Change their password if they want to, on the change password tab under my account
+  - Reset their password if they forget it, on forgot password tab under sign in tab
 
-### `yarn test`
+### Screenshot
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-💻 Desktop-View
+![](./gifs/desktop-gif.gif)
 
-### `yarn build`
+![](./gifs/desktop-gif-2.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-📱 Mobile-View
+![](./gifs/mobile-view.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Links
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Solution URL: [click here.](https://github.com/aLpSabre/React-Recipe-App)
+- Live Site URL: [click here.](https://theworldsfood.netlify.app/)
 
-### `yarn eject`
+### Built with
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- HTML5 markup
+- CSS custom properties
+- Styled Components
+- MUI
+- React JS
+- Context API
+- Local Storage
+- Firebase Authentication
+- Firestore
+- Dotenv
+- Netlify
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### What I learned
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+I have learned how to fetch data from an API with asyn functions and use special methods from the API's
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```js
+const getIP = async function (ip) {
+  try {
+    const res = await fetch(`https://ipapi.co/${ip}/json/`);
 
-## Learn More
+    if (res.error) {
+      renderError();
+      throw new Error(`${res.status}`);
+    }
+    const data = await res.json();
+    renderData(data);
+  } catch (error) {}
+};
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Useful resources
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Leaflet JS Library](https://leafletjs.com/examples/quick-start/) -I used this JS Library for the interactive map on the project.
+- [IAPI](https://ipapi.co/) -I used this API to get the informations about IP's.
+- [Ipify](https://www.ipify.org/) -I used this API to get the informations about IP's.
+- [JAWG](https://www.jawg.io/docs/) -I used the tile for the map with Leaflet.
+- [Leaflet Providers](https://github.com/leaflet-extras/leaflet-providers) -An extension to Leaflet that contains configurations for various free tile providers.
 
-### Code Splitting
+## Author
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Frontend Mentor - [@alpbrace](https://www.frontendmentor.io/profile/alpbrace)
