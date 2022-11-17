@@ -36,12 +36,12 @@ Users are able to:
 
 ### Screenshot
 
--💻 Desktop-View(Please wait until the videos is uploaded,if not please refresh the page!)
+-💻 Desktop-View(Please wait until the videos are uploaded,if not please refresh the page!)
 
 https://user-images.githubusercontent.com/85255784/202576146-74aaaf44-0286-40e5-8a74-f12c4082b769.mp4
 
 
--📱 Mobile-View (Please wait until the videos is uploaded,if not please refresh the page!)
+-📱 Mobile-View (Please wait until the videos are uploaded,if not please refresh the page!)
 
 
 ### Links
