@@ -40,16 +40,16 @@ Users are able to:
 
 -Part1
 
-https://user-images.githubusercontent.com/85255784/202576146-74aaaf44-0286-40e5-8a74-f12c4082b769.mp4
+https://user-images.githubusercontent.com/85255784/202580904-57307061-a938-4170-96c8-c8b942085b1d.mp4
 
 -Part2
 
-https://user-images.githubusercontent.com/85255784/202577304-bb1fcade-d285-45cd-8d78-e5b4d35edf97.mp4
-
+https://user-images.githubusercontent.com/85255784/202580910-eda44f17-e2fd-449d-8788-bc1eb022bf0b.mp4
 
 -📱 Mobile-View (Please wait until the videos are uploaded,if not please refresh the page!)
 
-https://user-images.githubusercontent.com/85255784/202580445-f94c533d-caec-495d-8766-ec48467203bf.mp4
+https://user-images.githubusercontent.com/85255784/202580925-f551fac6-f5c2-4a98-af3f-96251734a800.mp4
+
 
 ### Links
 
