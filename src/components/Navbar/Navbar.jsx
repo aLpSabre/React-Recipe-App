@@ -70,7 +70,7 @@ const Nav = styled.nav`
     flex-direction: column;
     /*   height: 25vh; */
     transition: height 0.5s ease-in-out;
-    height: ${({ primary }) => (primary === "show" ? "28vh" : "4vh")};
+    height: ${({ primary }) => (primary === "show" ? "28vh" : "5vh")};
     .md-toggle {
       width: 100%;
       display: flex;
@@ -79,7 +79,7 @@ const Nav = styled.nav`
     }
   }
   @media (max-height: 800px) {
-    height: ${({ primary }) => (primary === "show" ? "40vh" : "4vh")};
+    height: ${({ primary }) => (primary === "show" ? "40vh" : "5vh")};
   }
 `;
 
