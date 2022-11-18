@@ -25,7 +25,7 @@ Users are able to:
 - See 404 Error message if they try to go to unexisting part of the website
 - Sign up by creating their own account or with their google account
 - Get error message if they try to sign up with invalid email or password with under 6 characters
-- Sign in with their account on the app or google account
+- Sign in with their account on the app or their google account
 - Get error message if they try to sign up with invalid email or password
 - Do these if they have an account:
   - Save the recipes and see them  by their account for every user, on Saved Recipes tab under my account
