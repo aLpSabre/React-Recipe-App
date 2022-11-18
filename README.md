@@ -72,7 +72,7 @@ https://user-images.githubusercontent.com/85255784/202580925-f551fac6-f5c2-4a98-
 
 ### What I learned
 
-I used the Edamam API as a developer for free and because of it I can`t use the API fully and can only one filter with diet and heal preferences. Firstly, I changed the input types to radio, so with the same name user could choose only one option but the problem is that radio buttons can not be unchecked. I learned that it is not possible to set the states multiple time in a map function.So I haD to make my own radio button with check buttons and set the state one time lastly. Here is my code:
+I used the Edamam API as a developer for free and because of it I can`t use the API fully and can only make a call with one filter on diet and health preferences. Firstly, I changed the input types to radio, so with the same name user could choose only one option but the problem is that radio buttons can not be unchecked and I learned that it is not possible to set the states multiple time in a map function.So I had to make my own radio button with check button and set the state one time and lastly. Here is my code:
 
 ```js
 const handleRadio = (e) => {
