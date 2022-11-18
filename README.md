@@ -13,7 +13,7 @@
 
 ## Overview
 
-This is a real-time Recipe App made with React.
+This is a real-time Recipe App made with React, Firebase and Firestore.
 
 Users are able to:
 
