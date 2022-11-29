@@ -64,6 +64,7 @@ https://user-images.githubusercontent.com/85255784/202580925-f551fac6-f5c2-4a98-
 - React JS
 - Context API
 - Local Storage
+- React Router
 - Firebase Authentication
 - Firestore
 - React Spinners,React Lazy Load
